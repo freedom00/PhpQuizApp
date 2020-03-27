@@ -1,0 +1,49 @@
+{% extends "base.twig" %}
+{# THIS IS A TWIG COMMENT
+	the line above MUST be the first line in a template, It essentially says to use this template "base.twig" as of the main structure of my page and this current page "home.twig" is going to fill the blocks established in the main structure
+#}
+
+{% block main_content %}
+{# The content in here will replace the content block found inside of "base.twig" #}
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="">Summary</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive" style="">
+            <table class="table table-bordered ">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Name</th>
+                  <th>Subject</th>
+                  <th>Time</th>
+                  <th>Question</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>John</th>
+                  <td>PHP</td>
+                  <td>10:40</td>
+                  <td style="">10</td>
+                  <td>8</td>
+                </tr>
+                <tr></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12"><a class="btn btn-outline-primary" href="#">Print&nbsp;<i class="fa fa-fw fa-print"></i> </a></div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
