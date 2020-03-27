@@ -2,7 +2,7 @@
 {# THIS IS A TWIG COMMENT
 	the line above MUST be the first line in a template, It essentially says to use this template "base.twig" as of the main structure of my page and this current page "home.twig" is going to fill the blocks established in the main structure
 #}
-
+{% block page_title %}Login - Phoenix Quiz{% endblock %}
 {% block main_content %}
 {# The content in here will replace the content block found inside of "base.twig" #}
   <div class="py-5 text-center" style="	background-image: url(assets/cover-bubble-dark.svg);	background-size: cover;	background-position: top left;	background-repeat: repeat;">
@@ -18,7 +18,7 @@
           <form>
             <div class="form-group"> <input type="email" class="form-control" placeholder="Enter email" id="form9"> </div>
             <div class="form-group mb-3" style="opacity: 0.5;"> <input type="password" class="form-control" placeholder="Password" id="form10"> <small class="form-text text-muted text-right">
-                <a href="#"> Register</a>
+                <a href="register.php"> Register</a>
               </small> </div> <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
