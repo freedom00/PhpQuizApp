@@ -1,0 +1,66 @@
+{% extends "main.twig" %}
+{# THIS IS A TWIG COMMENT
+	the line above MUST be the first line in a template, It essentially says to use this template "base.twig" as of the main structure of my page and this current page "home.twig" is going to fill the blocks established in the main structure
+#}
+{% block page_title %}Question Edit - {% endblock %}
+{% block main_content %}
+{# The content in here will replace the content block found inside of "base.twig" #}
+<div class="py-5 text-center" style=" background-image: url(&quot;assets/cover-bubble-dark.svg&quot;);	background-position: top left;	background-size: cover;	background-repeat: repeat;">
+    <div class="container bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="">Question</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form class="text-left">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Question</span></div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Question">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="basic-addon1"><input type="checkbox" aria-label="Checkbox for following text input"></div>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Answer1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="basic-addon1"><input type="checkbox" aria-label="Checkbox for following text input"></div>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Answer2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="basic-addon1"><input type="checkbox" aria-label="Checkbox for following text input"></div>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Answer3">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="basic-addon1"><input type="checkbox" aria-label="Checkbox for following text input"></div>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Answer4">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

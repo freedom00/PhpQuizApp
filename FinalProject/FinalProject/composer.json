@@ -1,0 +1,7 @@
+{
+    "require": {
+        "twig/twig": "^2.0",
+        "sergeytsalkov/meekrodb": "*",
+        "monolog/monolog": "^2.0"
+    }
+}
