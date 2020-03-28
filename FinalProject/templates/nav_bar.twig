@@ -5,7 +5,8 @@
       <div class="collapse navbar-collapse" id="navbar6"> 
         <a class="navbar-brand text-primary d-none d-md-block" href="index.php">
           <i class="fa d-inline fa-lg fa-cloud"></i>
-          <b> Phoenix</b>
+           <b>{% if(login) %}  Hi {{ userName }}  {% endif %}</b>
+          <b> Phoenix Quiz</b>
         </a>
         <ul class="navbar-nav mx-auto">
           <li class="nav-item ">
@@ -24,7 +25,11 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item"> 
+            {% if(login) %}
+            <a class="nav-link" href="logout.php?userName={{ userName }}"><i class="fa fa-fw fa-sign-in"></i>Log out</a> 
+            {% else %}
             <a class="nav-link" href="login.php"><i class="fa fa-fw fa-sign-in"></i>Log in</a> 
+            {% endif %}
           </li>
           <li class="nav-item"> 
             <a class="nav-link" href="register.php"><i class="fa fa-user fa-fw"></i>Register</a> 
