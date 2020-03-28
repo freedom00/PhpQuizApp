@@ -6,5 +6,5 @@ require "inc/functions.inc.php";
 /*-- 
 	Return the template page which is located in the templates folder
 */
-$sender['file_name'] = "questions_list.twig";
+$sender['file_name'] = "questions.twig";
 sendPage($sender);
