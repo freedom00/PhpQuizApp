@@ -23,7 +23,6 @@ use Monolog\Handler\StreamHandler;
 // create a log channel
 $log = new Logger("phoenix_quiz_logger");
 
-
 $sender = array();
 $sender['year'] = date("Y");
 $sender['login'] = loggedIn();
