@@ -6,7 +6,5 @@ require "inc/functions.inc.php";
 /*-- 
 	Return the template page which is located in the templates folder
 */
-$year = date("Y");
-echo $twig->render("login_form.twig",compact("year"));
-
-?>
+$sender['file_name'] = "login_form.twig";
+sendPage($sender);
