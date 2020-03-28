@@ -23,15 +23,14 @@ use Monolog\Handler\StreamHandler;
 // create a log channel
 $log = new Logger("phoenix_quiz_logger");
 
+//add a global value to the footer
+$twig->addGlobal("year",date("Y"));
+
 $sender = array();
-$sender['year'] = date("Y");
+//$sender['year'] = date("Y");
 $sender['login'] = loggedIn();
 $sender['subjects'] = getSubjects();
 
-function getSubjects() {
-    // MEEKRO QUERY
-    return DB::query("SELECT * FROM final_project_subject");
-}
 
 /**
  * @param $sender
@@ -66,6 +65,7 @@ function pr($data)
     echo "</pre>";
 }
 
+
 /**
  * Validate if a given variable is empty
  *
@@ -94,3 +94,35 @@ function loggedIn()
     }
 }
 
+/**
+ *@return all subjects' info from database
+ */
+function getSubjects() {
+    // MEEKRO QUERY
+    return DB::query("SELECT * FROM final_project_subject");
+}
+
+/**
+ *@return all students' info from database
+ */
+function getStudents() {
+    // MEEKRO QUERY
+    return DB::query("SELECT * FROM final_project_student");
+}
+
+/**
+ *@return all teachers' info from database
+ */
+function getTeachers() {
+    // MEEKRO QUERY
+    return DB::query("SELECT * FROM final_project_teacher");
+}
+
+
+/**
+ *@return all questions' info from database
+ */
+function getQuestions() {
+    // MEEKRO QUERY
+    return DB::query("SELECT * FROM final_project_question");
+}
