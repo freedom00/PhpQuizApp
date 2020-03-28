@@ -2,10 +2,10 @@
 -- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 27, 2020 at 07:17 PM
+-- Host: localhost
+-- Generation Time: Mar 28, 2020 at 02:48 AM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- PHP Version: 7.2.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,11 +28,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `final_project_subject`
 --
 
-CREATE TABLE IF NOT EXISTS `final_project_subject` (
-  `subId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `final_project_subject` (
+  `subId` int(11) NOT NULL,
   `subName` varchar(255) NOT NULL,
-  `subPicPath` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`subId`)
+  `subPicPath` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -40,10 +39,30 @@ CREATE TABLE IF NOT EXISTS `final_project_subject` (
 --
 
 INSERT INTO `final_project_subject` (`subId`, `subName`, `subPicPath`) VALUES
-(1, 'PHP', '\\assets'),
-(2, 'JavaScript', '\\assets'),
-(3, 'HTML', '\\assets'),
-(4, 'CSS', '\\assets');
+(1, 'PHP', 'assets/php.jpg'),
+(2, 'JavaScript', 'assets/javascript.jpg'),
+(3, 'HTML', 'assets/html.jpg'),
+(4, 'CSS', 'assets/css.jpg');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `final_project_subject`
+--
+ALTER TABLE `final_project_subject`
+  ADD PRIMARY KEY (`subId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `final_project_subject`
+--
+ALTER TABLE `final_project_subject`
+  MODIFY `subId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
