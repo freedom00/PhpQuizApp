@@ -6,9 +6,9 @@ session_start();
 require_once 'vendor/autoload.php';
 
 // setup the location of our template files. They will be in the "templates" folder
-$loader = new Twig_Loader_Filesystem('templates');
+$loader = new \Twig\Loader\FilesystemLoader('templates');
 //-- setup the twig template environment.
-$twig = new Twig_Environment($loader);
+$twig = new \Twig\Environment($loader);
 
 
 //MEEKRO - database variables
