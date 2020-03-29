@@ -41,26 +41,28 @@
                 </form>
             </div>
         </div>
-            <div class="row justify-content-md-center">
-                <div class="col-md-8">
-                    <form class="text-left">
-                        <ul class="list-group">
-                            <li class="list-group-item" ><button type="button" class="btn btn-info">Question</button> {{ question_editing.quName }}</li>
-                            {% for option_editing in options_editing  %}                                                   
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 col-sm-7">                    
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src={{ question_editing.subPicPath  }} alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ question_editing.subName }}</h5>
+                            <p class="card-text">{{ question_editing.quName }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                             {% for option_editing in options_editing  %}                                                   
                             <li {% if option_editing.quAnswer=='0' %}class="list-group-item"{% else %}class="list-group-item active"
-                             {% endif %} ><button type="button" class="btn btn-info">{% if option_editing.quAnswer=='0' %} Option  {% else %} Answer 
-                             {% endif %}</button>  {{ option_editing.quOption }}</li>
+                             {% endif %}  >{{loop.index}} - {{ option_editing.quOption }}</li>
                             {% endfor %}
-                            <li class="list-group-item" ><button type="button" class="btn btn-info">Subject</button> {{ question_editing.subName }}</li>
-                            <li class="list-group-item" ><button type="button" class="btn btn-info">Type</button> {% if question_editing.quType=='sql' %}Single Choice 
-                            {% else %}Multiple Choices{% endif %}</li>
-                        </ul>                        
-                         <a class="btn btn-sm btn-warning pull-left" href="question.php?id={{ question_editing.quId }}&mode=edit">Edit</a></h2>
-                         <a class="btn btn-sm btn-primary pull-left" href="question.php?id={{ question_editing.quId }}&mode=delete">Delete</a></h2>
-                         <a class="btn btn-sm btn-secondary pull-left" href="question.php?id=0&mode=create">Add a new question</a></h2>
-                         <a class="btn btn-sm btn-info pull-left" href="question.php?id=0&&mode=list">Back to list</a></h2>
-                        
-                    </form>
+                        </ul>
+                        <div class="card-body">
+                            <a href="question.php?id={{ question_editing.quId }}&mode=edit" class="card-link">Edit</a>
+                            <a href="question.php?id={{ question_editing.quId }}&mode=delete" class="card-link">Delete</a>
+                            <a href="question.php?id={{ question_editing.quId }}&mode=create" class="card-link">Create</a>
+                            <a href="question.php?id=0&&mode=list"" class="card-link">Back</a>
+                        </div>
+                    </div>
+                   
                 </div>
             </div>
         </div>

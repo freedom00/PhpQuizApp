@@ -27,7 +27,7 @@
                <div class="form-group">
                 <label>Options</label>
                 {% for option_editing in options_editing  %}
-                <textarea class="form-control" rows="1" name="options"value={{ option_editing.quOption }}>{{ option_editing.quOption }}</textarea><br>
+                <textarea class="form-control" rows="1" name ="option{{loop.index}}" value={{ option_editing.quOption }}>{{ option_editing.quOption }}</textarea><br>
                 {% endfor  %}
               </div>
                 <div class="form-group">
