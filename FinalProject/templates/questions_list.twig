@@ -27,9 +27,16 @@
                             <td>{{ question.quId }}</td>
                             <td>{{ question.subName }}</td>
                             <td>{{ question.quName }}</td>  
+<<<<<<< HEAD:FinalProject/templates/questions_list.twig
                             <td class = "text-nowrap">
                                 <a href="question.php?id={{ question.quId }}&mode=view">View answers</a> | 
                                 <a href="question.php?id={{ question.quId }}&mode=delete">Delete</a>
+=======
+{#                            <td>{{ question.quType }}</td>#}
+                            <td class="text-nowrap">
+                                <a href="user.php?id={{ question.quId }}&mode=edit">Edit</a> | 
+                                <a href="user.php?id={{ question.quId }}&mode=delete">Delete</a>
+>>>>>>> 3a398c4921dfbfd4107f4ef2f7fab46352661f92:FinalProject/templates/questions.twig
                             </td>
                         </tr>
                     {% endfor %}

@@ -1,4 +1,12 @@
 <?php
+
+define('TEACHER', 'final_project_teacher');
+define('STUDENT', 'final_project_student');
+define('SUBJECT', 'final_project_subject');
+define('ANSWER', 'final_project_answer');
+define('QUESTION', 'final_project_question');
+define('RESULT', 'final_project_result');
+
 //start session
 session_start();
 
@@ -20,21 +28,25 @@ DB::$dbName = 'ipd19';
 // import the monolog library
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
 // create a log channel
 $log = new Logger("phoenix_quiz_logger");
 
 //add a global value to the footer
-$twig->addGlobal("year",date("Y"));
+$twig->addGlobal("year", date("Y"));
 
 $sender = array();
 //$sender['year'] = date("Y");
 $sender['login'] = loggedIn();
 $sender['subjects'] = getSubjects();
+$sender['errorMessage'] = "";
+$sender['query'] = "";
 
 /**
  * @param $sender
  */
-function pushLog($sender) {
+function pushLog($sender)
+{
     global $log;
     $log->pushHandler(new StreamHandler($sender['log_file_name'], $sender['log_type']));
 }
@@ -45,10 +57,11 @@ function pushLog($sender) {
  * @throws \Twig\Error\RuntimeError
  * @throws \Twig\Error\SyntaxError
  */
-function sendPage($sender) {
+function sendPage($sender)
+{
     global $twig;
     if (!empty($twig)) {
-        echo $twig->render($sender['file_name'],$sender);
+        echo $twig->render($sender['file_name'], $sender);
     }
 }
 
@@ -94,36 +107,76 @@ function loggedIn()
 }
 
 /**
- *@return all subjects' info from database
+ * @return all subjects' info from database
  */
-function getSubjects() {
+function getSubjects()
+{
     // MEEKRO QUERY
     return DB::query("SELECT * FROM final_project_subject");
 }
 
 /**
- *@return all students' info from database
+ * @return all students' info from database
  */
-function getStudents() {
+function getStudents()
+{
     // MEEKRO QUERY
     return DB::query("SELECT * FROM final_project_student");
 }
 
 /**
- *@return all teachers' info from database
+ * @return all teachers' info from database
  */
-function getTeachers() {
+function getTeachers()
+{
     // MEEKRO QUERY
     return DB::query("SELECT * FROM final_project_teacher");
 }
 
 
 /**
+<<<<<<< HEAD
  *@return questions' info from database
+=======
+ * @return all questions' info from database
+>>>>>>> 3a398c4921dfbfd4107f4ef2f7fab46352661f92
  */
-function getQuestions() {
+function getQuestions()
+{
     // MEEKRO QUERY
+<<<<<<< HEAD
     return DB::query("SELECT q.quId, s.subName, q.quName
     FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId ");
 }
 
+=======
+    return DB::query("SELECT * FROM final_project_question");
+}
+
+function getRowBy($sender)
+{
+    $key = array_keys($sender['row']);
+    $query = $sender['query'] == "" ? "SELECT * FROM " . $sender['tableName'] . " where " . array_shift($key) . "='" . array_shift($sender['row']) . "'" : $sender['query'];
+    $result = DB::queryFirstRow($query);
+    $result['count'] = DB::count();
+    return $result;
+}
+
+/**
+ * @param $sender
+ * @return mixed
+ */
+function getRows($sender)
+{
+
+    return DB::query($sender['query'] == "" ? "SELECT * FROM " . $sender['tableName'] : $sender['query']);
+}
+
+/**
+ * @param $sender
+ */
+function insertUpdate($sender)
+{
+    DB::insertUpdate($sender['tableName'], $sender['row']);
+}
+>>>>>>> 3a398c4921dfbfd4107f4ef2f7fab46352661f92

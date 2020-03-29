@@ -16,6 +16,31 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+            <div class="col-md-12">
+                <form class="text-left">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Question</span></div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" name="question" placeholder="Question" value={{ question_editing.quName }} >
+                        </div>
+                    </div>
+
+                    {% for option_editing in options_editing  %} 
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="basic-addon1"><input type="checkbox" aria-label="Checkbox for following text input"></div>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" name ="option{{loop.index}}" placeholder="Answer{{loop.index}}" value={{ option_editing.quOption }}>
+                        </div>
+                    </div>
+                    {% endfor %}
+               
+                    <button type="submit" class="btn btn-primary mb-2">Update</button>
+                </form>
+            </div>
+        </div>
             <div class="row justify-content-md-center">
                 <div class="col-md-8">
                     <form class="text-left">

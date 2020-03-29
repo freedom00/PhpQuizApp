@@ -49,6 +49,7 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 	if(isset($_GET['id'])&&is_numeric($_GET['id'])){
 		$sender['question_editing']= getQuestionById(($_GET['id']));
 		$sender['options_editing'] = getOptionsByQuestionId(($_GET['id']));
+		
 		$sender['answer_editing'] = getAnswerByQuestionId(($_GET['id']));		
 		$sender['mode'] = $_GET['mode'];
 		
