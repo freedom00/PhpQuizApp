@@ -1,15 +1,18 @@
 <?php
 // include our file of stuff we use often
 require "inc/functions.inc.php";
-if ( !$_SESSION['isLoggedIn'] || !isTeacher($_SESSION['name']) ){
+/*
+if ( !$_SESSION['isLoggedIn'] ){
 	header("Location: login.php");
 	die();
-}
+}else if(!isTeacher($_SESSION['name'])){
+	header("Location: index.php");
+	die();
+}*/
 if($_SERVER['REQUEST_METHOD']=="GET"){	
 	if(isset($_GET['id'])&&is_numeric($_GET['id'])){
 		$sender['question_editing']= getQuestionById(($_GET['id']));
-		$sender['options_editing'] = getOptionsByQuestionId(($_GET['id']));
-		
+		$sender['options_editing'] = getOptionsByQuestionId(($_GET['id']));		
 		$sender['answer_editing'] = getAnswerByQuestionId(($_GET['id']));		
 		$sender['mode'] = $_GET['mode'];
 		
@@ -39,10 +42,10 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 }else if($_SERVER['REQUEST_METHOD']=="POST"){
 	if (isFieldEmpty($_POST['question']) || isFieldEmpty($_POST['type']) || 
 	isFieldEmpty($_POST['subject']) ||isFieldEmpty($_POST['answer'])){
-      $errorMessage = "All fields are required";
+		$sender['errorMessage'] = "All field are required.";
 	}
 
-	if($errorMessage == ""){
+	if($sender['errorMessage'] == ""){
 		$vars_question = array( 
 		'subId' => getSubIdBySubName($_POST['subject']), 
 		'quName' => $_POST['question'],  
@@ -50,7 +53,6 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 	  	);
 	
 		if (isset($_GET['id']) && is_numeric($_GET['id'])){
-			var_dump($_GET['id']);
 			$vars_question['quId'] = $_GET['id'];
 			$quId = $_GET['id'];}
 
@@ -58,7 +60,6 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 	
 		$quId = DB::insertId();
 		
-
 		for ($i = 1; $i <=3; $i++) {
 		if(!isFieldEmpty($_POST['option'.$i])){
 			$vars_option = array(  

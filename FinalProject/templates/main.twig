@@ -2,25 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-------to be add some SEO here------------------------->
-    <!-- PAGE settings -->
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta property="og:url" content="http://www.phoenixquiz.com/quiz.html" />
+    <meta property="og:type" content="article quiz" />
+    <meta property="og:title" content="Phoenix Quiz" />
+    <meta property="og:description" content="PHP developer quiz" /> 
+    <meta property="og:image" content="http://phoenixquiz.com/image/cover-bubble-dark.svg" />
     <title>{% block page_title %}{% endblock %}Phoenix Quiz</title>
-    <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-
-
+</head>
 <body>
-<!------- nav bar ----------->
 {% include "nav_bar.twig" %}
 
-
-<!------ main content -------->
-
 {% block main_content %}{% endblock %}
-
 
 <!---------footer -------->
 <div class="py-3">
@@ -43,7 +38,8 @@
                             <i class="d-block fa fa-reddit text-muted fa-lg mx-2"></i>
                         </a> <a href="https://twitter.com/explore">
                             <i class="d-block fa fa-twitter text-muted fa-lg ml-2"></i>
-                        </a></div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,7 +49,7 @@
         </div>
     </div>
 </div>
-<!-- jquery ----->
+<!-- jquery-->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <!-- bootstrap -->

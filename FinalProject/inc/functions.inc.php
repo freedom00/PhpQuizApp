@@ -1,5 +1,4 @@
 <?php
-
 define('TEACHER', 'final_project_teacher');
 define('STUDENT', 'final_project_student');
 define('SUBJECT', 'final_project_subject');
