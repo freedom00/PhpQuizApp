@@ -31,7 +31,6 @@ $sender = array();
 $sender['login'] = loggedIn();
 $sender['subjects'] = getSubjects();
 
-
 /**
  * @param $sender
  */
@@ -120,9 +119,11 @@ function getTeachers() {
 
 
 /**
- *@return all questions' info from database
+ *@return questions' info from database
  */
 function getQuestions() {
     // MEEKRO QUERY
-    return DB::query("SELECT * FROM final_project_question");
+    return DB::query("SELECT q.quId, s.subName, q.quName
+    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId ");
 }
+

@@ -2,7 +2,7 @@
 {# THIS IS A TWIG COMMENT
 	the line above MUST be the first line in a template, It essentially says to use this template "base.twig" as of the main structure of my page and this current page "index.twig" is going to fill the blocks established in the main structure
 #}
-{% block page_title %}Question Edit - {% endblock %}
+{% block page_title %}Question Create - {% endblock %}
 {% block main_content %}
     {# The content in here will replace the content block found inside of "base.twig" #}
     <div class="py-5 text-center" style=" background-image: url(&quot;assets/cover-bubble-dark.svg&quot;);	background-position: top left;	background-size: cover;	background-repeat: repeat;">
@@ -22,21 +22,27 @@
             <form action="" method="POST">
               <div class="form-group">
                 <label>Question</label>
-                  <textarea class="form-control" rows="2" name="question" value={{ question_editing.quName }}>{{ question_editing.quName }}</textarea>              
+                  <textarea class="form-control" rows="2" name="question" placeholder="Edit question"></textarea>              
               </div>                
                <div class="form-group">
-                <label>Options</label>
-                {% for option_editing in options_editing  %}
-                <textarea class="form-control" rows="1" name="options"value={{ option_editing.quOption }}>{{ option_editing.quOption }}</textarea><br>
-                {% endfor  %}
+                <label>Options</label>               
+                <textarea class="form-control" rows="1" name="option1" placeholder="Edit choice 1"></textarea><br>    
+              </div>
+               <div class="form-group">
+                <label>Options</label>               
+                <textarea class="form-control" rows="1" name="option2" placeholder="Edit choice 2"></textarea><br>    
+              </div>
+               <div class="form-group">
+                <label>Options</label>               
+                <textarea class="form-control" rows="1" name="option3" placeholder="Edit choice 3"></textarea><br>    
               </div>
                 <div class="form-group">
                 <label>Answer</label>
-                <textarea class="form-control" rows="1" name="answer"  value={{ answer_editing.quOption }}>{{ answer_editing.quOption }}</textarea>
+                <textarea class="form-control" rows="1" name="answer"  placeholder="Edit answer"></textarea>
               </div>
               <div class="form-group">
               <label>Type</label>
-              <select class="form-control " name="type" value={{ question_editing.quType }}>
+              <select class="form-control " name="type" value="">
                 <option disabled selected value > -- select Single or Multiple Choice(s) -- </option>
                 <option value="sgl">Single Choice</option>
                 <option value="mul">Multiple Choices</option>
@@ -44,21 +50,14 @@
               </div>
                 <div class="form-group">
                 <label>Subject</label>
-                <select class="form-control " name="subject" value={{ question_editng.subName }}>
+                <select class="form-control " name="subject" value="">
                 <option disabled selected value> -- select an Subject -- </option>
               
                {% for subject in subjects %}                                
-                  <option value={{ subject.subName }}
-                    {% if mode=="edit" %} 
-                    {% if subject.subName==question_editing.subName %} 
-                       'selected="selected"'
-                    {% endif %} 
-                    {% endif %} >
-                       {{ subject.subName }} </option>
+                  <option value={{ subject.subName }} > {{ subject.subName }} </option>
                  {% endfor %}              
                 </select>
               </div>
-              <input type="hidden" name="id" value={{ question_edit.quId }}>
               <button type="submit" class="btn btn-primary" name="btnSubmit">Submit</button>
             </form>
 
