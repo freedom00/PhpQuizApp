@@ -1,0 +1,70 @@
+{% extends "main.twig" %}
+{# THIS IS A TWIG COMMENT
+	the line above MUST be the first line in a template, It essentially says to use this template "base.twig" as of the main structure of my page and this current page "index.twig" is going to fill the blocks established in the main structure
+#}
+{% block page_title %}Question Edit - {% endblock %}
+{% block main_content %}
+    {# The content in here will replace the content block found inside of "base.twig" #}
+    <div class="py-5 text-center" style=" background-image: url(&quot;assets/cover-bubble-dark.svg&quot;);	background-position: top left;	background-size: cover;	background-repeat: repeat;">
+        <div class="container bg-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="">Question Content</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-12">
+                <form class="text-left">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Question</span></div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" name="question" placeholder="Question" value={{ question_editing.quName }} >
+                        </div>
+                    </div>
+
+                    {% for option_editing in options_editing  %} 
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="basic-addon1"><input type="checkbox" aria-label="Checkbox for following text input"></div>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" name ="option{{loop.index}}" placeholder="Answer{{loop.index}}" value={{ option_editing.quOption }}>
+                        </div>
+                    </div>
+                    {% endfor %}
+               
+                    <button type="submit" class="btn btn-primary mb-2">Update</button>
+                </form>
+            </div>
+        </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 col-sm-7">                    
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src={{ question_editing.subPicPath  }} alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ question_editing.subName }}</h5>
+                            <p class="card-text">{{ question_editing.quName }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                             {% for option_editing in options_editing  %}                                                   
+                            <li {% if option_editing.quAnswer=='0' %}class="list-group-item"{% else %}class="list-group-item active"
+                             {% endif %}  >{{loop.index}} - {{ option_editing.quOption }}</li>
+                            {% endfor %}
+                        </ul>
+                        <div class="card-body">
+                            <a href="question.php?id={{ question_editing.quId }}&mode=edit" class="card-link">Edit</a>
+                            <a href="question.php?id={{ question_editing.quId }}&mode=delete" class="card-link">Delete</a>
+                            <a href="question.php?id={{ question_editing.quId }}&mode=create" class="card-link">Create</a>
+                            <a href="question.php?id=0&&mode=list"" class="card-link">Back</a>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

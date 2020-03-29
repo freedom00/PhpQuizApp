@@ -42,7 +42,6 @@ $sender['subjects'] = getSubjects();
 $sender['errorMessage'] = "";
 $sender['query'] = "";
 
-
 /**
  * @param $sender
  */
@@ -112,7 +111,6 @@ function loggedIn()
  */
 function getSubjects()
 {
-    // MEEKRO QUERY
     return DB::query("SELECT * FROM final_project_subject");
 }
 
@@ -121,7 +119,6 @@ function getSubjects()
  */
 function getStudents()
 {
-    // MEEKRO QUERY
     return DB::query("SELECT * FROM final_project_student");
 }
 
@@ -130,7 +127,6 @@ function getStudents()
  */
 function getTeachers()
 {
-    // MEEKRO QUERY
     return DB::query("SELECT * FROM final_project_teacher");
 }
 
@@ -140,7 +136,6 @@ function getTeachers()
  */
 function getQuestions()
 {
-    // MEEKRO QUERY
     return DB::query("SELECT * FROM final_project_question");
 }
 
@@ -170,3 +165,54 @@ function insertUpdate($sender)
 {
     DB::insertUpdate($sender['tableName'], $sender['row']);
 }
+
+
+/****************************functions zhilin inc***************************** */
+$errorMessage = "";
+/**
+ *@return questions' info from database
+ */
+function getQuestionById($id) {
+    return DB::queryFirstRow("SELECT q.quId, s.subName, q.quName,s.subPicPath
+    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND q.quId = $id");
+}
+/***
+ * 
+ */
+function getOptionsByQuestionId($id) {
+    return DB::query("SELECT *  FROM final_project_answer WHERE quId = $id");
+}
+/***
+ * 
+ * 
+ */
+function getAnswerByQuestionId($id) {
+    return DB::queryFirstRow("SELECT * FROM final_project_answer WHERE quId = $id AND quAnswer = '1'");
+}
+/***
+ * 
+ * 
+ */
+function getSubIdBySubName($subName) {
+    return DB::queryFirstRow("SELECT * FROM final_project_subject WHERE subName = '$subName'")['subId'];
+}
+/***
+ * 
+ * 
+ */
+function deleteQuestionById($id) {
+    return DB::queryFirstRow("DELETE FROM final_project_question WHERE quId = $id");
+}
+
+/***
+ * 
+ * 
+ */
+function isTeacher($name) {
+    $teachers = getTeachers();
+    foreach($teacher as $teachers){
+        if($teacher.tchName == $name)
+            return true;
+    }
+}
+/**functions zhilin inc****** */
