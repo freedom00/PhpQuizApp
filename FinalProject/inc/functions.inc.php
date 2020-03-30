@@ -99,6 +99,7 @@ function loggedIn()
         if (!isset($_SESSION['name'])) {
             $_SESSION['name'] = "Random Person";
         }
+        $sender['isLogin'] = true;
         return true;
     } else {
         return false;
@@ -127,15 +128,6 @@ function getStudents()
 function getTeachers()
 {
     return DB::query("SELECT * FROM final_project_teacher");
-}
-
-
-/**
- * @return all questions' info from database
- */
-function getQuestions()
-{
-    return DB::query("SELECT * FROM final_project_question");
 }
 
 function getRowBy($sender)
@@ -167,12 +159,11 @@ function insertUpdate($sender)
 
 
 /****************************functions zhilin inc***************************** */
-$errorMessage = "";
 /**
  *@return questions' info from database
  */
 function getQuestionById($id) {
-    return DB::queryFirstRow("SELECT q.quId, s.subName, q.quName,s.subPicPath
+    return DB::queryFirstRow("SELECT q.quId, s.subName, q.quName,s.subPicPath,q.quType
     FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND q.quId = $id");
 }
 /***
@@ -207,11 +198,30 @@ function deleteQuestionById($id) {
  * 
  * 
  */
-function isTeacher($name) {
+function isTeacherLogin($name) {
     $teachers = getTeachers();
     foreach($teacher as $teachers){
-        if($teacher.tchName == $name)
+        if($teacher.tchName == $name){
+            $sender['isTeacherLogin'] = ture;
             return true;
+        }
     }
+}
+
+/**
+ * @return all questions' info from database
+ */
+function getQuestions()
+{
+    return DB::query("SELECT q.quId, s.subName, q.quName,s.subPicPath
+    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId");
+}
+
+/**
+ * @return all questions' info from database
+ */
+function updateAnswerById($ansId)
+{
+    return DB::query("UPDATE final_project_answer SET quAnswer = 1  WHERE ansId =%i",$ansId);
 }
 /**functions zhilin inc****** */

@@ -2,10 +2,10 @@
 -- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 27, 2020 at 07:16 PM
+-- Host: localhost
+-- Generation Time: Mar 29, 2020 at 05:37 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- PHP Version: 7.2.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,20 +28,39 @@ SET time_zone = "+00:00";
 -- Table structure for table `final_project_student`
 --
 
-CREATE TABLE IF NOT EXISTS `final_project_student` (
-  `stuId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `final_project_student` (
+  `stuId` int(11) NOT NULL,
   `stuName` varchar(50) NOT NULL,
-  `stdEmail` varchar(255) NOT NULL,
-  `stuPassword` varchar(255) NOT NULL,
-  PRIMARY KEY (`stuId`)
+  `stuEmail` varchar(255) NOT NULL,
+  `stuPassword` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `final_project_student`
 --
 
-INSERT INTO `final_project_student` (`stuId`, `stuName`, `stdEmail`, `stuPassword`) VALUES
+INSERT INTO `final_project_student` (`stuId`, `stuName`, `stuEmail`, `stuPassword`) VALUES
 (1, 'Peng', 'peng@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `final_project_student`
+--
+ALTER TABLE `final_project_student`
+  ADD PRIMARY KEY (`stuId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `final_project_student`
+--
+ALTER TABLE `final_project_student`
+  MODIFY `stuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
