@@ -9,6 +9,8 @@ $sender['log_file_name'] = "logs/users.log";
 $sender['log_type'] = Logger::INFO;
 pushLog($sender);
 
+$_SESSION['sender'] = array();
+
 $sender['file_name'] = "index.twig";
 sendPage($sender);
 

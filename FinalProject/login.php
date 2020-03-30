@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     if ($sender['errorMessage'] == "") {
         $sender['tableName'] = STUDENT;
-        $sender['row'] = array('stuEmail' => $_POST['inputEmail']);
+        $sender['column'] = array('stuEmail' => $_POST['inputEmail']);
         $result = getRowBy($sender);
         if ($result['count'] != 1) {
             $sender['errorMessage'] = "No user with that email was found.";
