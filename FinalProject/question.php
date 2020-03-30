@@ -1,6 +1,7 @@
 <?php
 // include our file of stuff we use often
 require "inc/functions.inc.php";
+use Monolog\Logger;
 /*
 if ( !$_SESSION['isLoggedIn'] ){
 	header("Location: login.php");
@@ -9,24 +10,32 @@ if ( !$_SESSION['isLoggedIn'] ){
 	header("Location: index.php");
 	die();
 }*/
+$sender['log_file_name'] = "logs/questions.log";
+$sender['log_type'] = Logger::INFO;
+pushLog($sender);
+
 if($_SERVER['REQUEST_METHOD']=="GET"){
 	$sender['mode'] = $_GET['mode'];	
-	if($_GET['mode']=="list"){
+	if(isset($_GET['mode'])&&$_GET['mode']=="list"){
 		$sender['questions'] = getQuestions();
+		if(isset($_GET['subId'])&&is_numeric($_GET['subId'])){
+			$sender['questions']=getQuestionsBySubId($_GET['subId']);	
+		}
 		$sender['file_name'] = "questions_list.twig";
 		sendPage($sender);
 		die();
-	}else if ($_GET['mode']=="create"){						
+	}else if (isset($_GET['mode'])&&$_GET['mode']=="create"){
 		$sender['file_name'] = "question_create.twig";
 		sendPage($sender);
+
 	}else if(isset($_GET['id'])&&is_numeric($_GET['id'])){			
-		if($_GET['mode']=="delete"){
+		if(isset($_GET['mode'])&&$_GET['mode']=="delete"){
 			deleteQuestionById(($_GET['id']));
 			$sender['questions'] = getQuestions();
 			$sender['file_name'] = "questions_list.twig";
 			sendPage($sender);
 			die();
-		}else if($_GET['mode']=="viewAndEdit"){
+		}else if(isset($_GET['mode'])&&$_GET['mode']=="viewAndEdit"){
 			$sender['answer_editing'] = getAnswerByQuestionId(($_GET['id']));	
 			$sender['question_editing']= getQuestionById(($_GET['id']));
 			$sender['options_editing'] = getOptionsByQuestionId(($_GET['id']));	
@@ -34,14 +43,15 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 			sendPage($sender);	
 		}		
 	}	
+	
 }else if($_SERVER['REQUEST_METHOD']=="POST"){
 	if (isFieldEmpty($_POST['question']) || isFieldEmpty($_POST['type']) || 
 	isFieldEmpty($_POST['subject'])){
-		$sender['errorMessage'] = "All field are required.";
-		var_dump($sender['errorMessage'] );
+		$sender['errorMessage'] = "These fields are required.";
 	}	
 	if($sender['errorMessage'] == ""){
-		if($_GET['mode'] == "create"){
+
+		if(isset($_GET['mode'])&&$_GET['mode'] == "create"){
 			$vars_question = array( 
 				'subId' => $_POST['subject'], 
 				'quName' => $_POST['question'],  
@@ -71,7 +81,8 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 					}
 				}
 			}
-		}else if($_GET['mode'] == "viewAndEdit"){
+			$log->info("New question with ID #$quId has been created.");
+		}else if(isset($_GET['mode'])&&$_GET['mode'] == "viewAndEdit"){
 			$quId =$_POST['quId'];
 			$optionIds = getOptionsByQuestionId($_POST['quId']);
 			$optionAccount =count($optionIds);
@@ -103,7 +114,8 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 						DB::insertUpdate("final_project_answer", $vars_option);	
 					}								
 				}				
-			}			
+			}
+			$log->info("One question with ID #$quId has been updated.");			
 		}
 	}
 	$sender['file_name'] = "questions_list.twig";

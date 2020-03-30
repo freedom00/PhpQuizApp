@@ -34,7 +34,7 @@
                                     <input type="checkbox" name="answerId[]" value = "{{loop.index}}" aria-label="Checkbox for following text input" {% if option_editing.quAnswer==1 %}checked{% endif %}>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" id="inlineFormInputGroup" name ="option{{loop.index}}" placeholder="Answer{{loop.index}}" value="{{ option_editing.quOption }}">
+                            <input type="text" class="form-control" id="inlineFormInputGroup" name ="option{{loop.index}}" placeholder="Can not leave empty here" value="{{ option_editing.quOption }}">
                         </div>
                     </div>
                     {% endfor %}

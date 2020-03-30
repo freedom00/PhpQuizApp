@@ -225,3 +225,9 @@ function updateAnswerById($ansId)
     return DB::query("UPDATE final_project_answer SET quAnswer = 1  WHERE ansId =%i",$ansId);
 }
 /**functions zhilin inc****** */
+
+function getQuestionsBySubId($subId)
+{
+    return DB::query("SELECT q.quId, s.subName, q.quName
+    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND s.subId =%i",$subId);
+}
