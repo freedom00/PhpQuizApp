@@ -132,8 +132,8 @@ function getTeachers()
 
 function getRowBy($sender)
 {
-    $key = array_keys($sender['row']);
-    $query = $sender['query'] == "" ? "SELECT * FROM " . $sender['tableName'] . " where " . array_shift($key) . "='" . array_shift($sender['row']) . "'" : $sender['query'];
+    $key = array_keys($sender['column']);
+    $query = $sender['query'] == "" ? "SELECT * FROM " . $sender['tableName'] . " where " . array_shift($key) . "='" . array_shift($sender['column']) . "'" : $sender['query'];
     $result = DB::queryFirstRow($query);
     $result['count'] = DB::count();
     return $result;
@@ -145,7 +145,6 @@ function getRowBy($sender)
  */
 function getRows($sender)
 {
-
     return DB::query($sender['query'] == "" ? "SELECT * FROM " . $sender['tableName'] : $sender['query']);
 }
 
@@ -157,10 +156,22 @@ function insertUpdate($sender)
     DB::insertUpdate($sender['tableName'], $sender['row']);
 }
 
+function secToTime($times)
+{
+    $result = '00:00:00';
+    if ($times > 0) {
+        $hour = floor($times / 3600);
+        $minute = floor(($times - 3600 * $hour) / 60);
+        $second = floor((($times - 3600 * $hour) - 60 * $minute) % 60);
+        $result = sprintf("%02d:%02d:%02d", $hour, $minute, $second);
+    }
+    return $result;
+}
+
 
 /****************************functions zhilin inc***************************** */
 /**
- *@return questions' info from database
+ * @return questions' info from database
  */
 function getQuestionById($id) {
     return DB::queryFirstRow("SELECT q.quId, s.subName, q.quName,s.subPicPath,q.quType
@@ -225,9 +236,3 @@ function updateAnswerById($ansId)
     return DB::query("UPDATE final_project_answer SET quAnswer = 1  WHERE ansId =%i",$ansId);
 }
 /**functions zhilin inc****** */
-
-function getQuestionsBySubId($subId)
-{
-    return DB::query("SELECT q.quId, s.subName, q.quName
-    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND s.subId =%i",$subId);
-}

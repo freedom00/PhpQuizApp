@@ -6,44 +6,62 @@
 {% block main_content %}
     {# The content in here will replace the content block found inside of "base.twig" #}
     <div class="py-5 text-center" style="	background-image: url(&quot;assets/cover-bubble-dark.svg&quot;);	background-position: top left;	background-size: 100%;	background-repeat: repeat;">
-        <div class="container bg-white">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="">PHP Quiz</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#"> <span>«</span></a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#"> <span>»</span></a></li>
-                    </ul>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%">50%</div>
-                </div>
+    <div class="container bg-white">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
-                        <form class="text-left">
-                            <div class="form-group">
-                                <label>Question</label>
-                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer1</label></div>
-                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer2</label></div>
-                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer3</label></div>
-                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer4</label></div>
+                        <h1 class="">{{ questions[currentPage - 1].subName }} Quiz</h1>
+                        {% if errorMessage != "" %}
+                            <div class="alert alert-primary" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <h4 class="alert-heading">Important Information!</h4>
+                                <p class="mb-0">{{ errorMessage }}</p>
                             </div>
-                            <button type="submit" class="btn btn-primary">Next</button>
-                        </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
+        {% if errorMessage == "" %}
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="pagination m-2">
+                        <li class="page-item"><a class="page-link" href="quiz.php?subject={{ questions[currentPage - 1].subName }}&page={{ currentPage - 1 }}"> <span>«</span></a></li>
+                        <li class="page-item active"><a class="page-link" href="#">{{ currentPage }}</a></li>
+                        <li class="page-item"><a class="page-link" href="quiz.php?subject={{ questions[currentPage - 1].subName }}&page={{ currentPage + 1 }}"> <span>»</span></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="progress m-3">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ progressRate }}%">{{ progressRate }}%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                {#                <div class="progress">#}
+                {#                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%">50%</div>#}
+                {#                </div>#}
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="text-left" method="get">
+                            <div class="form-group">
+                                <label>{{ questions[currentPage - 1].quName }}</label>
+                                {% for option in options %}
+                                <div class="custom-control custom-radio"><input type="radio" id="customRadio{{ loop.index }}" name="option" class="custom-control-input" value="{{ option.ansId }}"><label class="custom-control-label" for="customRadio{{ loop.index }}">{{option.quOption}}</label></div>
+{#                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer2</label></div>#}
+{#                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer3</label></div>#}
+{#                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer4</label></div>#}
+                                {% endfor %}
+                                <input type="hidden" name="subject" value="{{ questions[currentPage - 1].subName }}">
+                                <input type="hidden" name="page" value="{{ currentPage }}">
+{#                                <input type="hidden" name="correctCount" value="{{ correctCount }}">#}
+                            </div>
+                            <button type="submit" class="btn btn-primary  mb-5">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

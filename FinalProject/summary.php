@@ -6,5 +6,11 @@ require "inc/functions.inc.php";
 /*-- 
 	Return the template page which is located in the templates folder
 */
+
+echo date('l, F jS, Y', time());
+
+$sender = $_SESSION['sender'];
+$sender['name'] = $_SESSION['name'];
+$sender['time'] = secToTime(time() - $sender['time']);
 $sender['file_name'] = "summary.twig";
 sendPage($sender);
