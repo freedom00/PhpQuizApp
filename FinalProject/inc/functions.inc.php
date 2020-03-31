@@ -224,7 +224,7 @@ function isTeacherLogin($name) {
  */
 function getQuestions()
 {
-    return DB::query("SELECT q.quId, s.subName, q.quName,s.subPicPath
+    return DB::query("SELECT q.quId, s.subName, q.quName,s.subPicPath,s.subId
     FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId");
 }
 
@@ -234,5 +234,14 @@ function getQuestions()
 function updateAnswerById($ansId)
 {
     return DB::query("UPDATE final_project_answer SET quAnswer = 1  WHERE ansId =%i",$ansId);
+}
+
+/**
+ * @return all questions' info from database
+ */
+function getQuestionsBySubId($subId)
+{
+    return DB::query("SELECT q.quId, s.subName, q.quName,s.subPicPath,s.subId
+    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND s.subId = %i",$subId);
 }
 /**functions zhilin inc****** */

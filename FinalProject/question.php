@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 	}	
 	
 }else if($_SERVER['REQUEST_METHOD']=="POST"){
-    pr($_POST['options']);
+	
 	if (isFieldEmpty($_POST['question']) || isFieldEmpty($_POST['type']) || 
 	isFieldEmpty($_POST['subject'])){
 		$sender['errorMessage'] = "These fields are required.";
