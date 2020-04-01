@@ -17,7 +17,7 @@
                     <a class="nav-link dropdown-toggle" href="login.php" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-question"></i>&nbsp;Quizzes&nbsp;</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {% for subject in subjects %}
-                            <a class="dropdown-item" href="quiz.php?subject={{ subject.subName }}&page=1">{{ subject.subName }}</a>
+                            <a class="dropdown-item {% if( isTeacherLogin) %}  disabled  {% endif %}" href="quiz.php?subject={{ subject.subName }}&page=1&mode=restart">{{ subject.subName }}</a>
                         {% endfor %}
                     </div>
                 </li>

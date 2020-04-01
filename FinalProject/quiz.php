@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     if (!isset($_GET['subject']) || trim($_GET['subject']) == "") {
         $sender['errorMessage'] = "There is no such subject.";
         sendPage($sender);
-        return;
+        die();
     }
 
-    if (isset($_SESSION['sender']) && count($_SESSION['sender']) != 0) {
+    if (!isset($_GET['mode']) && isset($_SESSION['sender']) && count($_SESSION['sender']) != 0) {
         $sender = $_SESSION['sender'];
     } else {
         $sender['query'] = "SELECT q.quId, s.subName, q.quName FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND s.subName = '" . $_GET['subject'] . "'";
@@ -58,12 +58,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $sender['options'] = getRows($sender);
     $sender['query'] = "";
 
-    $sender['progressRate'] = count($sender['submittedQuestions']) / $sender['totalQuestions'] * 100;
+    $sender['progressRate'] = round(count($sender['submittedQuestions']) / $sender['totalQuestions'], 2) * 100;
 
     $_SESSION['sender'] = $sender;
 
     if ($sender['progressRate'] == 100) {
+        $sender['tableName'] = STUDENT;
+        $sender['column'] = array('stuName' => $_SESSION['name']);
+        $student = getRowBy($sender);
+
+        $sender['tableName'] = SUBJECT;
+        $sender['column'] = array('subName' => $_GET['subject']);
+        $subject = getRowBy($sender);
+
+        $sender['tableName'] = RESULT;
+        $sender['row'] = array('stuId' => $student['stuId'], 'subId' => $subject['subId'], 'tmConsume' => time() - $sender['time'], 'quCount' => $sender['totalQuestions'], 'score' => $sender['correctCount']);
+        insertUpdate($sender);
         header("Location: summary.php");
+        die();
     }
 }
 

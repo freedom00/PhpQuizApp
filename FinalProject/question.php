@@ -1,7 +1,18 @@
 <?php
 // include our file of stuff we use often
-require "inc/functions.inc.php";
 use Monolog\Logger;
+
+require "inc/functions.inc.php";
+
+$sender['log_file_name'] = "logs/questions.log";
+$sender['log_type'] = Logger::INFO;
+pushLog($sender);
+
+//if (!isLogin()) {
+//    header("Location: login.php");
+//    die();
+//}
+
 /*
 if ( !$_SESSION['isLoggedIn'] ){
 	header("Location: login.php");
@@ -10,9 +21,8 @@ if ( !$_SESSION['isLoggedIn'] ){
 	header("Location: index.php");
 	die();
 }*/
-$sender['log_file_name'] = "logs/questions.log";
-$sender['log_type'] = Logger::INFO;
-pushLog($sender);
+
+
 
 if($_SERVER['REQUEST_METHOD']=="GET"){
 	$sender['mode'] = $_GET['mode'];	

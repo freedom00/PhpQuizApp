@@ -41,6 +41,7 @@ $sender['subjects'] = getSubjects();
 $sender['errorMessage'] = "";
 $sender['query'] = "";
 isLogin();
+isTeacherLogin();
 
 /**
  * @param $sender
@@ -103,12 +104,11 @@ function isLogin()
         }
         $sender['isLogin'] = true;
         $sender['userName'] = $_SESSION['name'];
-        return true;
     } else {
         $sender['isLogin'] = false;
         $sender['userName'] = "";
-        return false;
     }
+    return $sender['isLogin'];
 }
 
 /**
@@ -223,15 +223,15 @@ function deleteQuestionById($id)
  *
  *
  */
-function isTeacherLogin($name)
+function isTeacherLogin()
 {
-    $teachers = getTeachers();
-    foreach ($teacher as $teachers) {
-        if ($teacher . tchName == $name) {
-            $sender['isTeacherLogin'] = ture;
-            return true;
-        }
+    global $sender;
+    if (isLogin() && $_SESSION['occupation'] == TCH) {
+        $sender['isTeacherLogin'] = true;
+    } else {
+        $sender['isTeacherLogin'] = false;
     }
+    return $sender['isTeacherLogin'];
 }
 
 /**
