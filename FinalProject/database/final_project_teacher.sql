@@ -2,10 +2,10 @@
 -- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 27, 2020 at 07:18 PM
+-- Host: localhost
+-- Generation Time: Apr 01, 2020 at 06:04 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- PHP Version: 7.2.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `final_project_teacher`
 --
 
+DROP TABLE IF EXISTS `final_project_teacher`;
 CREATE TABLE IF NOT EXISTS `final_project_teacher` (
   `tchId` int(11) NOT NULL AUTO_INCREMENT,
   `tchName` varchar(50) NOT NULL,
@@ -41,8 +42,8 @@ CREATE TABLE IF NOT EXISTS `final_project_teacher` (
 --
 
 INSERT INTO `final_project_teacher` (`tchId`, `tchName`, `tchEmail`, `tchPassword`) VALUES
-(1, 'Zhaosheng', 'zhaosheng@gmail.com', '4297f44b13955235245b2497399d7a93'),
-(2, 'Zhilin', 'zhilin@gmail.com', '4297f44b13955235245b2497399d7a93');
+(1, 'Zhaosheng', 'zhaosheng@gmail.com', '4$2y$10$wvn6/WjY6LSy0jdTt5GsUu4aqM/fTIzbo0IrYnZqyhBjC6lJvaYly'),
+(2, 'Zhilin', 'zhilin@gmail.com', '$2y$10$wvn6/WjY6LSy0jdTt5GsUu4aqM/fTIzbo0IrYnZqyhBjC6lJvaYly');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

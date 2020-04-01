@@ -16,3 +16,8 @@
 [2020-03-30T08:11:45.637562+02:00] phoenix_quiz_logger.INFO: Zhaosheng has logged in  [] []
 [2020-03-31T00:48:35.708040+02:00] phoenix_quiz_logger.INFO: zhilin lin has logged in  [] []
 [2020-04-01T17:27:50.321932+02:00] phoenix_quiz_logger.INFO: zhilin lin has logged out  [] []
+[2020-04-01T18:09:10.252214+02:00] phoenix_quiz_logger.INFO: Zhilin has logged in  [] []
+[2020-04-01T18:17:59.439494+02:00] phoenix_quiz_logger.INFO: Zhilin has logged out  [] []
+[2020-04-01T18:18:34.704131+02:00] phoenix_quiz_logger.INFO: zhilin has registered  [] []
+[2020-04-01T18:18:50.058968+02:00] phoenix_quiz_logger.INFO: zhilin has logged in  [] []
+[2020-04-01T18:26:14.356312+02:00] phoenix_quiz_logger.INFO: zhilin has logged out  [] []

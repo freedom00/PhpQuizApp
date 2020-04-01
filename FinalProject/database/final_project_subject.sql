@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 28, 2020 at 02:48 AM
+-- Generation Time: Apr 01, 2020 at 06:04 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -28,10 +28,12 @@ SET time_zone = "+00:00";
 -- Table structure for table `final_project_subject`
 --
 
-CREATE TABLE `final_project_subject` (
-  `subId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `final_project_subject`;
+CREATE TABLE IF NOT EXISTS `final_project_subject` (
+  `subId` int(11) NOT NULL AUTO_INCREMENT,
   `subName` varchar(255) NOT NULL,
-  `subPicPath` varchar(255) DEFAULT NULL
+  `subPicPath` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`subId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -43,26 +45,6 @@ INSERT INTO `final_project_subject` (`subId`, `subName`, `subPicPath`) VALUES
 (2, 'JavaScript', 'assets/javascript.jpg'),
 (3, 'HTML', 'assets/html.jpg'),
 (4, 'CSS', 'assets/css.jpg');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `final_project_subject`
---
-ALTER TABLE `final_project_subject`
-  ADD PRIMARY KEY (`subId`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `final_project_subject`
---
-ALTER TABLE `final_project_subject`
-  MODIFY `subId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
