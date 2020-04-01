@@ -6,7 +6,7 @@
         <div class="collapse navbar-collapse" id="navbar6">
             <a class="navbar-brand text-primary d-none d-md-block" href="index.php">
                 <i class="fa d-inline fa-lg fa-cloud"></i>
-                <b>{% if(login) %}  Hi {{ userName }}  {% endif %}</b>
+                <b>{% if(isLogin) %}  Hi {{ userName }}  {% endif %}</b>
                 <b> Phoenix Quiz</b>
             </a>
             <ul class="navbar-nav mx-auto">
@@ -21,6 +21,11 @@
                         {% endfor %}
                     </div>
                 </li>
+                {% if(isTeacherLogin) %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="question.php?mode=list"><i class="fa fa-fw fa-list"></i>Show Questions</a>
+                    </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -31,13 +36,10 @@
                     {% endif %}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="register.php"><i class="fa fa-user fa-fw"></i>Register</a>
+                    {% if(not isLogin) %}
+                        <a id="register" class="nav-link" href="register.php"><i class="fa fa-user fa-fw"></i>Register</a>
+                    {% endif %}
                 </li>
-                {% if(isTeacherLogin) %}
-                <li class="nav-item">
-                    <a class="nav-link" href="question.php?mode=list"><i class="fa fa-user fa-fw"></i>Show Questions</a>
-                </li>
-                {% endif %}
             </ul>
         </div>
     </div>

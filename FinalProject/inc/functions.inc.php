@@ -5,6 +5,8 @@ define('SUBJECT', 'final_project_subject');
 define('ANSWER', 'final_project_answer');
 define('QUESTION', 'final_project_question');
 define('RESULT', 'final_project_result');
+define('TCH', 'teacher');
+define('STU', 'student');
 
 //start session
 session_start();
@@ -35,11 +37,10 @@ $log = new Logger("phoenix_quiz_logger");
 $twig->addGlobal("year", date("Y"));
 
 $sender = array();
-//$sender['year'] = date("Y");
-$sender['login'] = loggedIn();
 $sender['subjects'] = getSubjects();
 $sender['errorMessage'] = "";
 $sender['query'] = "";
+isLogin();
 
 /**
  * @param $sender
@@ -93,15 +94,19 @@ function isFieldEmpty($field)
  *
  * @return Boolean
  */
-function loggedIn()
+function isLogin()
 {
+    global $sender;
     if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
         if (!isset($_SESSION['name'])) {
             $_SESSION['name'] = "Random Person";
         }
         $sender['isLogin'] = true;
+        $sender['userName'] = $_SESSION['name'];
         return true;
     } else {
+        $sender['isLogin'] = false;
+        $sender['userName'] = "";
         return false;
     }
 }
@@ -173,46 +178,56 @@ function secToTime($times)
 /**
  * @return questions' info from database
  */
-function getQuestionById($id) {
+function getQuestionById($id)
+{
     return DB::queryFirstRow("SELECT q.quId, s.subName, q.quName,s.subPicPath,q.quType
     FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND q.quId = $id");
 }
+
 /***
- * 
+ *
  */
-function getOptionsByQuestionId($id) {
+function getOptionsByQuestionId($id)
+{
     return DB::query("SELECT *  FROM final_project_answer WHERE quId = $id");
 }
+
 /***
- * 
- * 
+ *
+ *
  */
-function getAnswerByQuestionId($id) {
+function getAnswerByQuestionId($id)
+{
     return DB::queryFirstRow("SELECT * FROM final_project_answer WHERE quId = $id AND quAnswer = '1'");
 }
+
 /***
- * 
- * 
+ *
+ *
  */
-function getSubIdBySubName($subName) {
+function getSubIdBySubName($subName)
+{
     return DB::queryFirstRow("SELECT * FROM final_project_subject WHERE subName = '$subName'")['subId'];
 }
+
 /***
- * 
- * 
+ *
+ *
  */
-function deleteQuestionById($id) {
+function deleteQuestionById($id)
+{
     return DB::queryFirstRow("DELETE FROM final_project_question WHERE quId = $id");
 }
 
 /***
- * 
- * 
+ *
+ *
  */
-function isTeacherLogin($name) {
+function isTeacherLogin($name)
+{
     $teachers = getTeachers();
-    foreach($teacher as $teachers){
-        if($teacher.tchName == $name){
+    foreach ($teacher as $teachers) {
+        if ($teacher . tchName == $name) {
             $sender['isTeacherLogin'] = ture;
             return true;
         }
@@ -233,7 +248,7 @@ function getQuestions()
  */
 function updateAnswerById($ansId)
 {
-    return DB::query("UPDATE final_project_answer SET quAnswer = 1  WHERE ansId =%i",$ansId);
+    return DB::query("UPDATE final_project_answer SET quAnswer = 1  WHERE ansId =%i", $ansId);
 }
 
 /**
@@ -242,6 +257,6 @@ function updateAnswerById($ansId)
 function getQuestionsBySubId($subId)
 {
     return DB::query("SELECT q.quId, s.subName, q.quName,s.subPicPath,s.subId
-    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND s.subId = %i",$subId);
+    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND s.subId = %i", $subId);
 }
 /**functions zhilin inc****** */

@@ -5,6 +5,8 @@ use Monolog\Logger;
 
 require "inc/functions.inc.php";
 
+$sender['file_name'] = "register.twig";
+
 $sender['log_file_name'] = "logs/users.log";
 $sender['log_type'] = Logger::INFO;
 pushLog($sender);
@@ -29,5 +31,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 /*--
 	Return the template page which is located in the templates folder
 */
-$sender['file_name'] = "register.twig";
+
 sendPage($sender);

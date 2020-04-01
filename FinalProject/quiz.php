@@ -3,7 +3,7 @@
 // include our file of stuff we use often
 require "inc/functions.inc.php";
 
-if ( !loggedIn() ){
+if (!isLogin()) {
     header("Location: login.php");
     die();
 }
