@@ -21,3 +21,5 @@
 [2020-04-01T18:18:34.704131+02:00] phoenix_quiz_logger.INFO: zhilin has registered  [] []
 [2020-04-01T18:18:50.058968+02:00] phoenix_quiz_logger.INFO: zhilin has logged in  [] []
 [2020-04-01T18:26:14.356312+02:00] phoenix_quiz_logger.INFO: zhilin has logged out  [] []
+[2020-04-02T01:30:09.013570+02:00] phoenix_quiz_logger.INFO: Belinda has registered  [] []
+[2020-04-02T01:30:32.853965+02:00] phoenix_quiz_logger.INFO: Belinda has logged in  [] []
