@@ -26,14 +26,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th>{{ name }}</th>
-                                <td>{{ questions[0].subName }}</td>
-                                <td>{{ time }}</td>
-                                <td style="">{{ totalQuestions }}</td>
-                                <td>{{ correctCount }}</td>
-                            </tr>
-                            <tr></tr>
+                            {% for question in questions %}
+                                <tr>
+                                    <th>{{ question.stuName }}</th>
+                                    <td>{{ question.subName }}</td>
+                                    <td>{{ question.tmConsume }}</td>
+                                    <td>{{ question.quCount }}</td>
+                                    <td>{{ question.score }}</td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -42,7 +43,19 @@
         </div>
         <div class="container">
             <div class="row text-left">
-                <div class="col-md-12"><a class="btn btn-outline-primary" id="print" href="#">Print&nbsp;<i class="fa fa-fw fa-print"></i> </a></div>
+                <form id="html_form" method="post">
+                    <input hidden name="html" id="html_value"/>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-outline-primary" onclick="exportPdf()">Print&nbsp;<i class="fa fa-fw fa-print"></i></button>
+                    </div>
+                </form>
+                <script>
+                    function exportPdf() {
+                        const html = document.getElementById("printArea").innerHTML;
+                        document.getElementById("html_value").value = html;
+                        document.forms["html_form"].submit();
+                    }
+                </script>
             </div>
         </div>
     </div>

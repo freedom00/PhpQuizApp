@@ -7,6 +7,7 @@ define('QUESTION', 'final_project_question');
 define('RESULT', 'final_project_result');
 define('TCH', 'teacher');
 define('STU', 'student');
+define('ANON', 'anonymous');
 
 //start session
 session_start();
@@ -40,8 +41,24 @@ $sender = array();
 $sender['subjects'] = getSubjects();
 $sender['errorMessage'] = "";
 $sender['query'] = "";
+$sender['userName'] = ANON;
 isLogin();
 isTeacherLogin();
+
+/**
+ * @param $html
+ */
+function export($html)
+{
+    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $pdf->AddPage();
+    $html = <<<EOF
+{$html}
+EOF;
+    $pdf->writeHTML($html, true, false, true, false, '');
+    $pdf->lastPage();
+    $pdf->Output('score_summary.pdf', 'I');
+}
 
 /**
  * @param $sender
@@ -109,6 +126,53 @@ function isLogin()
         $sender['userName'] = "";
     }
     return $sender['isLogin'];
+}
+
+/**
+ * @return bool
+ */
+function isTeacherLogin()
+{
+    global $sender;
+    if (isLogin() && $_SESSION['occupation'] == TCH) {
+        $sender['isTeacherLogin'] = true;
+    } else {
+        $sender['isTeacherLogin'] = false;
+    }
+    return $sender['isTeacherLogin'];
+}
+
+/**
+ * @return bool
+ */
+function isStudentLogin()
+{
+    global $sender;
+    if (isLogin() && $_SESSION['occupation'] == STU) {
+        $sender['isStudentLogin'] = true;
+    } else {
+        $sender['isStudentLogin'] = false;
+    }
+    return $sender['isStudentLogin'];
+}
+
+function updateLoginStatusAndName($status = ANON, $name = ANON)
+{
+    global $sender;
+    switch ($status) {
+        case STU:
+            $sender['loginStatus'] = $_SESSION['loginStatus'] = STU;
+            $sender['name'] = $_SESSION['name'] = $name;
+            break;
+        case TCH:
+            $sender['loginStatus'] = $_SESSION['loginStatus'] = TCH;
+            $sender['name'] = $_SESSION['name'] = $name;
+            break;
+        default:
+            $sender['loginStatus'] = $_SESSION['loginStatus'] = ANON;
+            $sender['name'] = $_SESSION['name'] = ANON;
+            break;
+    }
 }
 
 /**
@@ -217,21 +281,6 @@ function getSubIdBySubName($subName)
 function deleteQuestionById($id)
 {
     return DB::queryFirstRow("DELETE FROM final_project_question WHERE quId = $id");
-}
-
-/***
- *
- *
- */
-function isTeacherLogin()
-{
-    global $sender;
-    if (isLogin() && $_SESSION['occupation'] == TCH) {
-        $sender['isTeacherLogin'] = true;
-    } else {
-        $sender['isTeacherLogin'] = false;
-    }
-    return $sender['isTeacherLogin'];
 }
 
 /**

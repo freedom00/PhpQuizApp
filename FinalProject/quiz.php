@@ -72,8 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $subject = getRowBy($sender);
 
         $sender['tableName'] = RESULT;
-        $sender['row'] = array('stuId' => $student['stuId'], 'subId' => $subject['subId'], 'tmConsume' => time() - $sender['time'], 'quCount' => $sender['totalQuestions'], 'score' => $sender['correctCount']);
+        $sender['row'] = array('stuId' => $student['stuId'], 'subId' => $subject['subId'], 'tmConsume' => secToTime(time() - $sender['time']), 'quCount' => $sender['totalQuestions'], 'score' => $sender['correctCount']);
         insertUpdate($sender);
+        $_SESSION['sender'] = array();
         header("Location: summary.php");
         die();
     }

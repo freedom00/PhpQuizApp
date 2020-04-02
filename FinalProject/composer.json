@@ -2,6 +2,7 @@
   "require": {
     "twig/twig": "^3.0",
     "sergeytsalkov/meekrodb": "*",
-    "monolog/monolog": "*"
+    "monolog/monolog": "*",
+    "tecnick.com/tcpdf": "*"
   }
 }
