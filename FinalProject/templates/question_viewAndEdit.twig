@@ -12,6 +12,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h1 class="">Question </h1>
+                               {% if errorMessage != "" %}
+                                <div class="alert alert-primary" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <h4 class="alert-heading">Important Information!</h4>
+                                    <p class="mb-0">{{ errorMessage }}</p>
+                                </div>
+                            {% endif %}   
                         </div>
                     </div>
                 </div>

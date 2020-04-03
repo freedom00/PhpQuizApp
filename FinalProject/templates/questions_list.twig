@@ -10,7 +10,14 @@
         <div class="row mt-4">
             <div class="col-12">
                 <h2>List All Questions</h2>
-            </div>              
+             {% if errorMessage != "" %}
+                <div class="alert alert-primary" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <h4 class="alert-heading">Important Information!</h4>
+                    <p class="mb-0">{{ errorMessage }}</p>
+                </div>
+            {% endif %}   
+            </div>          
             <div class="table-responsive col-12">         
                 <div class="dropdown show pull-right">
                     <a class="btn btn-secondary dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
