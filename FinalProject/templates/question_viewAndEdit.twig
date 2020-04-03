@@ -12,6 +12,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h1 class="">Question </h1>
+                               {% if errorMessage != "" %}
+                                <div class="alert alert-primary" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <h4 class="alert-heading">Important Information!</h4>
+                                    <p class="mb-0">{{ errorMessage }}</p>
+                                </div>
+                            {% endif %}   
                         </div>
                     </div>
                 </div>
@@ -68,7 +75,7 @@
                     <input type="hidden" name="optionCount" value="{{ option_count }}">
                     <button type="submit" class="btn btn-primary mb-2">Update</button>
                     <a  href="question.php?mode=list"><i class="fa fa-fw fa-undo"></i>Back to list</a>
-                    <a  href="question.php?id={{ question_editing.quId }}&mode=delete"><i class="fa fa-fw fa-trash"></i>Delete</a>
+                    <a href="question.php?id={{ question_editing.quId }}&mode=delete" onclick="return confirm('Are you sure to delete?')"><i class="fa fa-fw fa-trash"></i>Delete</a>
                 </form>              
             </div>
         </div>          

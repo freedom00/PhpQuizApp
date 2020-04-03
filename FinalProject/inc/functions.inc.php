@@ -129,6 +129,7 @@ function isLogin()
 }
 
 /**
+<<<<<<< HEAD
  * @return bool
  */
 function isTeacherLogin()
@@ -177,6 +178,10 @@ function updateLoginStatusAndName($status = ANON, $name = ANON)
 
 /**
  * @return all subjects' info from database
+=======
+ * function to fetch all subjects info from database
+ * @return all subjects' info 
+>>>>>>> test
  */
 function getSubjects()
 {
@@ -184,7 +189,8 @@ function getSubjects()
 }
 
 /**
- * @return all students' info from database
+ * function to fetch all students' info from database
+ * @return all students' info 
  */
 function getStudents()
 {
@@ -192,6 +198,7 @@ function getStudents()
 }
 
 /**
+ * function to fetch all teachers' info from database
  * @return all teachers' info from database
  */
 function getTeachers()
@@ -240,7 +247,9 @@ function secToTime($times)
 
 /****************************functions zhilin inc***************************** */
 /**
- * @return questions' info from database
+ * function to get question's info by id
+ * @param [int] id of question
+ * @return [array] questions' info 
  */
 function getQuestionById($id)
 {
@@ -249,7 +258,9 @@ function getQuestionById($id)
 }
 
 /***
- *
+ * function to get question's options info by question's id
+ * @param [int] id of question
+ * @return [array] question's options 
  */
 function getOptionsByQuestionId($id)
 {
@@ -257,8 +268,9 @@ function getOptionsByQuestionId($id)
 }
 
 /***
- *
- *
+ * function to get question's answer info by question's id
+ * @param [int] id of question
+ * @return question's answer
  */
 function getAnswerByQuestionId($id)
 {
@@ -266,8 +278,9 @@ function getAnswerByQuestionId($id)
 }
 
 /***
- *
- *
+  * function to get subject's id  by subject's name
+ * @param [string] subject's name
+ * @return [int] subject's id  
  */
 function getSubIdBySubName($subName)
 {
@@ -275,16 +288,36 @@ function getSubIdBySubName($subName)
 }
 
 /***
- *
- *
+  * function to delete question by question's id  
+ * @param [int] id of question
+ * @return boolean 
  */
 function deleteQuestionById($id)
 {
     return DB::queryFirstRow("DELETE FROM final_project_question WHERE quId = $id");
 }
 
+<<<<<<< HEAD
+=======
+/***
+ *function to check if it is teacher login
+ *@return boolean
+ */
+function isTeacherLogin()
+{
+    global $sender;
+    if (isLogin() && $_SESSION['occupation'] == TCH) {
+        $sender['isTeacherLogin'] = true;
+    } else {
+        $sender['isTeacherLogin'] = false;
+    }
+    return $sender['isTeacherLogin'];
+}
+
+>>>>>>> test
 /**
- * @return all questions' info from database
+ * function to fetch all questions' info from database
+ * @return all questions' info 
  */
 function getQuestions()
 {
@@ -292,16 +325,20 @@ function getQuestions()
     FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId");
 }
 
-/**
- * @return all questions' info from database
+/***
+ * function to update answer info by answer's id
+ * @param [int] answer's id
+ * @return int
  */
 function updateAnswerById($ansId)
 {
     return DB::query("UPDATE final_project_answer SET quAnswer = 1  WHERE ansId =%i", $ansId);
 }
 
-/**
- * @return all questions' info from database
+/***
+  * function to get questions by subject's id
+ * @param [int] subject's id
+ * @return [array] questions
  */
 function getQuestionsBySubId($subId)
 {
