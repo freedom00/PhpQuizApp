@@ -68,7 +68,7 @@
                     <input type="hidden" name="optionCount" value="{{ option_count }}">
                     <button type="submit" class="btn btn-primary mb-2">Update</button>
                     <a  href="question.php?mode=list"><i class="fa fa-fw fa-undo"></i>Back to list</a>
-                    <a  href="question.php?id={{ question_editing.quId }}&mode=delete"><i class="fa fa-fw fa-trash"></i>Delete</a>
+                    <a href="question.php?id={{ question_editing.quId }}&mode=delete" onclick="return confirm('Are you sure to delete?')"><i class="fa fa-fw fa-trash"></i>Delete</a>
                 </form>              
             </div>
         </div>          

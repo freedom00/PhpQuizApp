@@ -42,7 +42,7 @@
                             <td>{{ question.quName }}</td>  
                             <td class = "text-nowrap">
                                 <a href="question.php?id={{ question.quId }}&mode=viewAndEdit">View and Edit</a> | 
-                                <a href="question.php?id={{ question.quId }}&mode=delete">Delete</a>
+                                <a href="question.php?id={{ question.quId }}&mode=delete" onclick="return confirm('Are you sure to delete?')">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
