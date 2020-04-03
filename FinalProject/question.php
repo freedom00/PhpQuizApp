@@ -20,35 +20,42 @@ if ( !$_SESSION['isLoggedIn'] ){
 //if server request method is a get method
 if($_SERVER['REQUEST_METHOD']=="GET"){
 	//check each method and then render to different templates 
-
+	if(isset($_GET['mode'])&&$_GET['mode']!=""){
+		$sender['mode'] = $_GET['mode'];
+	}
+	if(isset($_GET['id'])&&is_numeric($_GET['id'])){
+		$sender['questionId'] = $_GET['id'];
+	}
+	if(isset($_GET['subId'])&&is_numeric($_GET['subId'])){
+		$sender['subId'] = $_GET['subId'];
+	}
 	//request for getting the questions' list show up	
-	if(isset($_GET['mode'])&&$_GET['mode']=="list"){
+	if($sender['mode']=="list"){
 		$sender['questions'] = getQuestions();
 		//this is condition for the sort button, allow user to sort questions by subjects
-		if(isset($_GET['subId'])&&is_numeric($_GET['subId'])){
+		if($sender['subId'] ){
 			$sender['questions']=getQuestionsBySubId($_GET['subId']);	
 		}
 		$sender['file_name'] = "questions_list.twig";
 		sendPage($sender);
 		
-	}else if (isset($_GET['mode'])&&$_GET['mode']=="create"){//request for creating a new question
+	}else if ($sender['mode']=="create"){//request for creating a new question
 		$sender['file_name'] = "question_create.twig";
 		sendPage($sender);
 
-	}else if(isset($_GET['id'])&&is_numeric($_GET['id'])){//request for deleting a question			
-		if(isset($_GET['mode'])&&$_GET['mode']=="delete"){
-			deleteQuestionById(($_GET['id']));
-			$sender['questions'] = getQuestions();
-			$sender['file_name'] = "questions_list.twig";
-			sendPage($sender);
+	}else if($sender['mode']=="delete"){//request for deleting a question	
+		deleteQuestionById(($sender['questionId']));
+		$sender['questions'] = getQuestions();
+		$sender['file_name'] = "questions_list.twig";
+		sendPage($sender);
 
-		}else if(isset($_GET['mode'])&&$_GET['mode']=="viewAndEdit"){//request for updating a question by question id
-			$sender['answer_editing'] = getAnswerByQuestionId(($_GET['id']));	
-			$sender['question_editing']= getQuestionById(($_GET['id']));
-			$sender['options_editing'] = getOptionsByQuestionId(($_GET['id']));	
-			$sender['file_name'] = "question_viewAndEdit.twig";
-			sendPage($sender);	
-		}		
+	}else if($sender['mode']=="viewAndEdit"){//request for updating a question by question id
+		$sender['answer_editing'] = getAnswerByQuestionId(($sender['questionId']));	
+		$sender['question_editing']= getQuestionById(($sender['questionId']));
+		$sender['options_editing'] = getOptionsByQuestionId($sender['questionId']);	
+		$sender['file_name'] = "question_viewAndEdit.twig";
+		sendPage($sender);	
+				
 	}	
 //if server request method is a post method
 }else if($_SERVER['REQUEST_METHOD']=="POST"){
@@ -62,10 +69,11 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 	if (isFieldEmpty($_POST['type'])){
 		$sender['errorMessage'] = "Type field is required.";
 	}
+	var_dump($sender['errorMessage']);
 	// if 	
 	if($sender['errorMessage'] == ""){
 
-		if(isset($_GET['mode'])&&$_GET['mode'] == "create"){
+		if($sender['mode']== "create"){
 			$vars_question = array( 
 				'subId' => $_POST['subject'], 
 				'quName' => $_POST['question'],  
@@ -98,7 +106,7 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 			}
 			$log->info("New question with ID #$quId has been created.");
 			
-		}else if(isset($_GET['mode'])&&$_GET['mode'] == "viewAndEdit"){
+		}else if($sender['mode'] == "viewAndEdit"){
 			$quId =$_POST['quId'];
 			$optionIds = getOptionsByQuestionId($_POST['quId']);
 			$optionAccount =count($optionIds);
@@ -133,7 +141,9 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 			}
 			$log->info("One question with ID #$quId has been updated.");			
 		}
+		
 	}
+	
 	header("Location:question.php?mode=list");
 	die();
 }

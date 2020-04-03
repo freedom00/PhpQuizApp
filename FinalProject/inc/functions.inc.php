@@ -42,6 +42,9 @@ $sender['subjects'] = getSubjects();
 $sender['errorMessage'] = "";
 $sender['query'] = "";
 $sender['userName'] = ANON;
+$sender['mode']="";
+$sender['questionId']="";
+$sender['subId']="";
 isLogin();
 isTeacherLogin();
 
@@ -248,7 +251,7 @@ function secToTime($times)
  */
 function getQuestionById($id)
 {
-    return DB::queryFirstRow("SELECT q.quId, s.subName, q.quName,s.subPicPath,q.quType
+    return DB::queryFirstRow("SELECT q.quId, s.subName, q.quName,s.subPicPath,q.quType,s.subId
     FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND q.quId = $id");
 }
 
