@@ -129,7 +129,6 @@ function isLogin()
 }
 
 /**
-<<<<<<< HEAD
  * @return bool
  */
 function isTeacherLogin()
@@ -178,10 +177,6 @@ function updateLoginStatusAndName($status = ANON, $name = ANON)
 
 /**
  * @return all subjects' info from database
-=======
- * function to fetch all subjects info from database
- * @return all subjects' info 
->>>>>>> test
  */
 function getSubjects()
 {
@@ -297,24 +292,6 @@ function deleteQuestionById($id)
     return DB::queryFirstRow("DELETE FROM final_project_question WHERE quId = $id");
 }
 
-<<<<<<< HEAD
-=======
-/***
- *function to check if it is teacher login
- *@return boolean
- */
-function isTeacherLogin()
-{
-    global $sender;
-    if (isLogin() && $_SESSION['occupation'] == TCH) {
-        $sender['isTeacherLogin'] = true;
-    } else {
-        $sender['isTeacherLogin'] = false;
-    }
-    return $sender['isTeacherLogin'];
-}
-
->>>>>>> test
 /**
  * function to fetch all questions' info from database
  * @return all questions' info 
