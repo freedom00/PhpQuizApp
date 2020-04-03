@@ -8,21 +8,14 @@ $sender['log_file_name'] = "logs/questions.log";
 $sender['log_type'] = Logger::INFO;
 pushLog($sender);
 
-//if (!isLogin()) {
-//    header("Location: login.php");
-//    die();
-//}
 
-/*
 if ( !$_SESSION['isLoggedIn'] ){
 	header("Location: login.php");
 	die();
 }else if(!isTeacherLogin($_SESSION['name'])){
 	header("Location: index.php");
 	die();
-}*/
-
-
+}
 
 if($_SERVER['REQUEST_METHOD']=="GET"){
 	$sender['mode'] = $_GET['mode'];	
