@@ -5,7 +5,7 @@
 {% block page_title %}Question Edit - {% endblock %}
 {% block main_content %}
     {# The content in here will replace the content block found inside of "base.twig" #}
-    <div class="py-5 text-center" style=" background-image: url(&quot;assets/cover-bubble-dark.svg&quot;);	background-position: top left;	background-size: cover;	background-repeat: repeat;">
+    <div class="py-5 text-center" id="bg_question">
         <div class="container bg-white">
             <div class="row">
                 <div class="col-md-12">
@@ -75,7 +75,7 @@
                     <input type="hidden" name="optionCount" value="{{ option_count }}">
                     <button type="submit" class="btn btn-primary mb-2">Update</button>
                     <a  href="question.php?mode=list"><i class="fa fa-fw fa-undo"></i>Back to list</a>
-                    <a href="question.php?id={{ question_editing.quId }}&mode=delete" onclick="return confirm('Are you sure to delete?')"><i class="fa fa-fw fa-trash"></i>Delete</a>
+                    <a href="question.php?id={{ question_editing.quId }}&mode=delete" onclick="confirmDelete('Are you sure to delete?')"><i class="fa fa-fw fa-trash"></i>Delete</a>
                 </form>              
             </div>
         </div>          

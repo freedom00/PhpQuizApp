@@ -1,0 +1,15 @@
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: transparent; }
+  
+#bg_question {
+    background-image: url("../cover-bubble-dark.svg");
+    background-position: top left;	
+    background-size: cover;	
+    background-repeat: repeat;
+  }

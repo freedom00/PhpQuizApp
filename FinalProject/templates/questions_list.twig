@@ -5,7 +5,7 @@
 {% block page_title %}List of Questions - {% endblock %}
 {% block main_content %}
     {# The content in here will replace the content block found inside of "base.twig" #}
-<div class="py-5 text-center" style="	background-image: url(&quot;assets/cover-bubble-dark.svg&quot;);	background-position: top left;	background-size: cover;	background-repeat: repeat;">
+<div class="py-5 text-center " id="bg_question" >
     <div class="container bg-white">
         <div class="row mt-4">
             <div class="col-12">
@@ -20,7 +20,7 @@
             </div>          
             <div class="table-responsive col-12">         
                 <div class="dropdown show pull-right">
-                    <a class="btn btn-secondary dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Sort By Subject
                     </a>    
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -49,7 +49,7 @@
                             <td>{{ question.quName }}</td>  
                             <td class = "text-nowrap">
                                 <a href="question.php?id={{ question.quId }}&mode=viewAndEdit">View and Edit</a> | 
-                                <a href="question.php?id={{ question.quId }}&mode=delete" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                                <a href="question.php?id={{ question.quId }}&mode=delete" onclick="confirmDelete('Are you sure to delete?')">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
