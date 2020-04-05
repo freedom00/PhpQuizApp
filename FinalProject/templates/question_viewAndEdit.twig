@@ -21,7 +21,7 @@
                <form class="text-left" action="" method="POST">
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Question Details and Edit</span></div>
+                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Question</span></div>
                             <input type="text" class="form-control" id="inlineFormInputGroup" name="question" placeholder="Question" value="{{ question_editing.quName }}" >
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label>Type</label>
                         <select class="form-control " name="type" value="{{ question_editing.quType }}">
-                            <option disabled selected value > -- select Single or Multiple Choice(s) -- </option>
+                            <option disabled selected value > -- Select Single or Multiple Choice(s) -- </option>
                             <option value="sgl"{% if mode=="viewAndEdit" and question_editing.quType=='sgl' %}    
                                     selected="selected"                         
                                     {% endif %} >Single Choice</option>
@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <label>Subject</label>
                             <select class="form-control " name="subject" value="{{ question_editng.subId }}">
-                                <option disabled selected value> -- select an Subject -- </option>           
+                                <option disabled selected value> -- Select a Subject Name -- </option>           
                                 {% for subject in subjects %}                                
                                 <option value="{{ subject.subId }}"
                                     {% if mode=="viewAndEdit" and subject.subName==question_editing.subName %}    
