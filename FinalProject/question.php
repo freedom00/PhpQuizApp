@@ -69,9 +69,13 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 	if($sender['errorMessage'] != ""){
 		if($sender['mode']== "create")
 			$sender['file_name'] = "question_create.twig";
-		sendPage($sender);
-			
-	
+		if($sender['mode']== "viewAndEdit"){
+		$sender['answer_editing'] = getAnswerByQuestionId(($sender['questionId']));	
+		$sender['question_editing']= getQuestionById(($sender['questionId']));
+		$sender['options_editing'] = getOptionsByQuestionId($sender['questionId']);	
+		$sender['file_name'] = "question_viewAndEdit.twig";	
+		}
+		
 	}else if($sender['errorMessage'] == ""&&$sender['mode']== "create"){
 		$vars_question = array( 
 			'subId' => $_POST['subject'], 
@@ -103,7 +107,14 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 				}
 			}
 		
-		}$log->info("New question with ID #$quId has been created.");
+		}
+		$log->info("New question with ID #$quId has been created.");
+		$sender['questions'] = getQuestions();
+		if($sender['subId'] ){
+			$sender['questions']=getQuestionsBySubId($_GET['subId']);
+			}
+		$sender['file_name'] = "questions_list.twig";
+		
 		
 	}else if($sender['errorMessage'] == ""&&$sender['mode'] == "viewAndEdit"){
 		$quId =$_POST['quId'];
@@ -138,12 +149,18 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 				}								
 			}				
 		
-		$log->info("One question with ID #$quId has been updated.");			
-	}
+		$log->info("One question with ID #$quId has been updated.");
+		$sender['questions'] = getQuestions();
+		if($sender['subId'] ){
+		$sender['questions']=getQuestionsBySubId($_GET['subId']);
+		}
+		$sender['file_name'] = "questions_list.twig";
+					
+		}
 		
-	}	
-	header("Location:question.php?mode=list");
-	die();
+	}
+	sendPage($sender);	
+	
 }
 
 
