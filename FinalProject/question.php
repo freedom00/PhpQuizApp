@@ -3,7 +3,6 @@
 use Monolog\Logger;
 
 require "inc/functions.inc.php";
-
 $sender['log_file_name'] = "logs/questions.log";
 $sender['log_type'] = Logger::INFO;
 pushLog($sender);
@@ -31,107 +30,94 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 	}
 	//request for getting the questions' list show up	
 	if($sender['mode']=="list"){
-		$sender['questions'] = getQuestions();
-		//this is condition for the sort button, allow user to sort questions by subjects
-		if($sender['subId'] ){
-			$sender['questions']=getQuestionsBySubId($_GET['subId']);	
-		}
-		$sender['file_name'] = "questions_list.twig";		
+		setDataToListpage();		
 	}else if ($sender['mode']=="create"){//request for creating a new question
+		$sender['messages']="";
 		$sender['file_name'] = "question_create.twig";
 	}else if($sender['mode']=="delete"){//request for deleting a question	
 		deleteQuestionById(($sender['questionId']));
 		$sender['questions'] = getQuestions();
 		$sender['file_name'] = "questions_list.twig";
 	}else if($sender['mode']=="viewAndEdit"){//request for updating a question by question id
-		$sender['answer_editing'] = getAnswerByQuestionId(($sender['questionId']));	
-		$sender['question_editing']= getQuestionById(($sender['questionId']));
-		$sender['options_editing'] = getOptionsByQuestionId($sender['questionId']);	
-		$sender['file_name'] = "question_viewAndEdit.twig";						
+		setDataToEditpage($sender['questionId']);					
 	}	
+	//finally, render to new page
 	sendPage($sender);	
 //if server request method is a post method
 }else if($_SERVER['REQUEST_METHOD']=="POST"){
 	if(isset($_GET['mode'])&&$_GET['mode']!=""){
 		$sender['mode'] = $_GET['mode'];
 	}
+	if(isset($_GET['id'])&&is_numeric($_GET['id'])){
+		$sender['questionId'] = $_GET['id'];
+	}
 	//validations for each field
-	if (isFieldEmpty($_POST['question'])){
-		$sender['errorMessage'] = "Question's field is not allowed empty";
+	if (@isFieldEmpty($_POST['question'])){
+		$sender['errorMessage'] = $sender['errorMessage']."Question's field is required.";
 	} 
-	if (isFieldEmpty($_POST['subject'])){
-		$sender['errorMessage'] = "Subject field is required.";
+	if (@isFieldEmpty($_POST['subject'])){
+		$sender['errorMessage'] = $sender['errorMessage']."\nSubject field is required.";
 	}
-	if (isFieldEmpty($_POST['type'])){
-		$sender['errorMessage'] = "Type field is required.";
+	if (@isFieldEmpty($_POST['type'])){
+		$sender['errorMessage'] = $sender['errorMessage']."\nType field is required.";
 	}
-	
-	if($sender['errorMessage'] != ""){
-		if($sender['mode']== "create")
-			$sender['file_name'] = "question_create.twig";
-		if($sender['mode']== "viewAndEdit"){
-		$sender['answer_editing'] = getAnswerByQuestionId(($sender['questionId']));	
-		$sender['question_editing']= getQuestionById(($sender['questionId']));
-		$sender['options_editing'] = getOptionsByQuestionId($sender['questionId']);	
-		$sender['file_name'] = "question_viewAndEdit.twig";	
-		}
-		
-	}else if($sender['errorMessage'] == ""&&$sender['mode']== "create"){
+	if (!isset($_POST['answerId'])){
+		$sender['errorMessage'] = $sender['errorMessage']."\nAn answer is required.";
+	}
+	//if no errors		
+	if($sender['errorMessage'] == ""&&$sender['mode']== "create"){
 		$vars_question = array( 
 			'subId' => $_POST['subject'], 
 			'quName' => $_POST['question'],  
 			'quType' => $_POST['type'] 		
 			);		
-				
+		//firstly, insert into final_project_question table
 		DB::insertUpdate("final_project_question", $vars_question);	
-		
+		//get the newest data
 		$quId = DB::insertId();
-		
+		//get four options to insert into insert into final_project_answer table 
 		for ($i = 1; $i <=4; $i++) {
-			$answerIds = $_POST['answerId'];
-			if(!isset($_POST['answerId'])){	
-				$sender['errorMessage'] = "Please choose at least one answer";								
+			//first insert the right answer
+			$answerIds = $_POST['answerId'];			
+			if(in_array($i,$_POST['answerId'])){
+				$vars_option = array(  				
+					'quId'=>$quId,
+					'quOption' => $_POST['option'.$i],  
+					'quAnswer' => 1 );
+			DB::insertUpdate("final_project_answer", $vars_option);
+
+			//then insert other answers
 			}else{
-				if(in_array($i,$_POST['answerId'])){
-					$vars_option = array(  				
-						'quId'=>$quId,
-						'quOption' => $_POST['option'.$i],  
-						'quAnswer' => 1 );
-				DB::insertUpdate("final_project_answer", $vars_option);
-				}else{
-					$vars_option = array(  				
-						'quId'=>$quId,
-						'quOption' => $_POST['option'.$i],  
-						'quAnswer' => 0 );
-					DB::insertUpdate("final_project_answer", $vars_option);	
-				}
-			}
-		
+				$vars_option = array(  				
+					'quId'=>$quId,
+					'quOption' => $_POST['option'.$i],  
+					'quAnswer' => 0 );
+				DB::insertUpdate("final_project_answer", $vars_option);	
+			}					
 		}
+		//log 
 		$log->info("New question with ID #$quId has been created.");
-		$sender['questions'] = getQuestions();
-		if($sender['subId'] ){
-			$sender['questions']=getQuestionsBySubId($_GET['subId']);
-			}
-		$sender['file_name'] = "questions_list.twig";
+		//if successfully, go back to list page
+		setDataToListpage();
 		
-		
+	// separate two pages, incase of errors// edit mode
 	}else if($sender['errorMessage'] == ""&&$sender['mode'] == "viewAndEdit"){
 		$quId =$_POST['quId'];
 		$optionIds = getOptionsByQuestionId($_POST['quId']);
 		$optionAccount =count($optionIds);
 		$vars_question = array( 
-		'quId'=> $_POST['quId'],
+		'quId'=> $_POST['quId'],//already exsit
 		'subId' => $_POST['subject'], 
 		'quName' => $_POST['question'],  
 		'quType' => $_POST['type'] 		
 		);
-
+		//firstly, update final_project_question table
 		DB::insertUpdate("final_project_question", $vars_question);	
 
+		//our exist questions have 2-4 options to choose.
 		for ($i = 1; $i <=$optionAccount; $i++) {
 			if(!isFieldEmpty($_POST['option'.$i])){													
-				
+				//first upadate the right answer
 				if(in_array($i,$_POST['answerId'])){
 					$vars_option = array( 
 						'ansId'=> $optionIds[$i-1]['ansId'],				
@@ -139,6 +125,7 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 						'quOption' => $_POST['option'.$i],  
 						'quAnswer' => 1 );
 					DB::insertUpdate("final_project_answer", $vars_option);
+				//then update others
 				}else{
 					$vars_option = array( 
 						'ansId'=> $optionIds[$i-1]['ansId'], 				
@@ -148,19 +135,21 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 					DB::insertUpdate("final_project_answer", $vars_option);	
 				}								
 			}				
-		
+		//log
 		$log->info("One question with ID #$quId has been updated.");
-		$sender['questions'] = getQuestions();
-		if($sender['subId'] ){
-		$sender['questions']=getQuestionsBySubId($_GET['subId']);
+		//go back to list page
+		setDataToListpage();					
 		}
-		$sender['file_name'] = "questions_list.twig";
-					
+	//if has errors, stay in same page continue to create or edit
+	}else if($sender['errorMessage'] != ""){
+		if($sender['mode']== "create")
+			$sender['file_name'] = "question_create.twig";
+		if($sender['mode']== "viewAndEdit"){
+			setDataToEditpage($sender['questionId']);
 		}
-		
 	}
-	sendPage($sender);	
-	
+	//finally, render to new page
+	sendPage($sender);		
 }
 
 

@@ -252,7 +252,7 @@ function secToTime($times)
 function getQuestionById($id)
 {
     return DB::queryFirstRow("SELECT q.quId, s.subName, q.quName,s.subPicPath,q.quType,s.subId
-    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND q.quId = $id");
+    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND q.quId = %i",$id);
 }
 
 /***
@@ -262,7 +262,7 @@ function getQuestionById($id)
  */
 function getOptionsByQuestionId($id)
 {
-    return DB::query("SELECT *  FROM final_project_answer WHERE quId = $id");
+    return DB::query("SELECT *  FROM final_project_answer WHERE quId = %i",$id);
 }
 
 /***
@@ -272,7 +272,7 @@ function getOptionsByQuestionId($id)
  */
 function getAnswerByQuestionId($id)
 {
-    return DB::queryFirstRow("SELECT * FROM final_project_answer WHERE quId = $id AND quAnswer = '1'");
+    return DB::queryFirstRow("SELECT * FROM final_project_answer WHERE quId = %i AND quAnswer = %i",$id,1);
 }
 
 /***
@@ -316,13 +316,41 @@ function updateAnswerById($ansId)
 }
 
 /***
-  * function to get questions by subject's id
+* function to get questions by subject's id
  * @param [int] subject's id
- * @return [array] questions
+ * @returns [array] questions
  */
 function getQuestionsBySubId($subId)
 {
     return DB::query("SELECT q.quId, s.subName, q.quName,s.subPicPath,s.subId
     FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND s.subId = %i", $subId);
 }
+
+/***
+* function to get data ready to render to new page by question's id
+ * @param [int] question's id
+ * @returns void
+ */
+function setDataToEditpage($id)
+{
+    global $sender;
+    $sender['answer_editing'] = getAnswerByQuestionId($id);	
+    $sender['question_editing']= getQuestionById($id);
+    $sender['options_editing'] = getOptionsByQuestionId($id);	
+    $sender['file_name'] = "question_viewAndEdit.twig";	
+}
+/***
+* function to get data ready to render to new page 
+ * @param [int] subject's id
+ * @returns void
+ */
+function setDataToListpage()
+{
+    global $sender;
+    $sender['questions'] = getQuestions();
+    if($sender['subId']){
+    $sender['questions']=getQuestionsBySubId($_GET['subId']);
+    }
+    $sender['file_name'] = "questions_list.twig";
 /**functions zhilin inc****** */
+}

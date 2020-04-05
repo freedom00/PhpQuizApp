@@ -11,14 +11,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="">Create a Question</h1>
-                               {% if errorMessage != "" %}
-                                <div class="alert alert-primary" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    <h4 class="alert-heading">Important Information!</h4>
-                                    <p class="mb-0">{{ errorMessage }}</p>
-                                </div>
-                            {% endif %}   
+                            <h1 class="">Create a Question</h1> 
                         </div>
                     </div>
                 </div>
@@ -28,7 +21,7 @@
              <form class="text-left" action="" method="POST">
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Question</span></div>
+                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Question Create</span></div>
                             <input type="text" class="form-control" id="inlineFormInputGroup" name="question" placeholder="Question" value="" >
                         </div>
                     </div>
