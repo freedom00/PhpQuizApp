@@ -64,6 +64,11 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 	if (!isset($_POST['answerId'])){
 		$sender['errorMessage'] = $sender['errorMessage']."\nAn answer is required.";
 	}
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if (isset($_POST['html']) && $_POST['html'] !== "") {
+            export($_POST['html']);
+        }
+    }
 	//if no errors		
 	if($sender['errorMessage'] == ""&&$sender['mode']== "create"){
 		$vars_question = array( 

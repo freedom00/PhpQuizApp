@@ -49,13 +49,6 @@
                         <button type="submit" class="btn btn-outline-primary" onclick="exportPdf()">Print&nbsp;<i class="fa fa-fw fa-print"></i></button>
                     </div>
                 </form>
-                <script>
-                    function exportPdf() {
-                        const html = document.getElementById("printArea").innerHTML;
-                        document.getElementById("html_value").value = html;
-                        document.forms["html_form"].submit();
-                    }
-                </script>
             </div>
         </div>
     </div>

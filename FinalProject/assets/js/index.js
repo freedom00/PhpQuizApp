@@ -8,3 +8,9 @@
 function confirmDelete(message){
     return window.confirm(message);   
 }
+
+function exportPdf() {
+    const html = document.getElementById("printArea").innerHTML;
+    document.getElementById("html_value").value = html;
+    document.forms["html_form"].submit();
+}
