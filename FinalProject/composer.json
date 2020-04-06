@@ -1,8 +1,8 @@
 {
   "require": {
     "twig/twig": "^3.0",
-    "sergeytsalkov/meekrodb": "*",
-    "monolog/monolog": "*",
-    "tecnick.com/tcpdf": "*"
+    "sergeytsalkov/meekrodb": "^2.3",
+    "monolog/monolog": "^2.0",
+    "tecnickcom/tcpdf": "^6.3"
   }
 }
