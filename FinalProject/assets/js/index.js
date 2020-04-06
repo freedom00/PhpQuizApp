@@ -2,11 +2,11 @@
 /**
  * a function to geneate a confirm popup
  * @param {str} message
- * 
- * @returns boolean 
+ *
+ * @returns boolean
  */
-function confirmDelete(message){
-    return window.confirm(message);   
+function confirmDelete(message) {
+    return window.confirm(message);
 }
 
 function exportPdf() {

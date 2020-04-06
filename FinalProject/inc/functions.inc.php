@@ -42,9 +42,9 @@ $sender['subjects'] = getSubjects();
 $sender['errorMessage'] = "";
 $sender['query'] = "";
 $sender['userName'] = ANON;
-$sender['mode']="";
-$sender['questionId']="";
-$sender['subId']="";
+$sender['mode'] = "";
+$sender['questionId'] = "";
+$sender['subId'] = "";
 isLogin();
 isTeacherLogin();
 
@@ -60,7 +60,7 @@ function export($html)
 EOF;
     $pdf->writeHTML($html, true, false, true, false, '');
     $pdf->lastPage();
-    $pdf->Output('score_summary.pdf', 'I');
+    $pdf->Output('phoenix_quiz.pdf', 'I');
 }
 
 /**
@@ -188,7 +188,7 @@ function getSubjects()
 
 /**
  * function to fetch all students' info from database
- * @return all students' info 
+ * @return all students' info
  */
 function getStudents()
 {
@@ -247,22 +247,22 @@ function secToTime($times)
 /**
  * function to get question's info by id
  * @param [int] id of question
- * @return [array] questions' info 
+ * @return [array] questions' info
  */
 function getQuestionById($id)
 {
     return DB::queryFirstRow("SELECT q.quId, s.subName, q.quName,s.subPicPath,q.quType,s.subId
-    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND q.quId = %i",$id);
+    FROM final_project_question AS q, final_project_subject AS s WHERE s.subId = q.subId AND q.quId = %i", $id);
 }
 
 /***
  * function to get question's options info by question's id
  * @param [int] id of question
- * @return [array] question's options 
+ * @return [array] question's options
  */
 function getOptionsByQuestionId($id)
 {
-    return DB::query("SELECT *  FROM final_project_answer WHERE quId = %i",$id);
+    return DB::query("SELECT *  FROM final_project_answer WHERE quId = %i", $id);
 }
 
 /***
@@ -272,13 +272,13 @@ function getOptionsByQuestionId($id)
  */
 function getAnswerByQuestionId($id)
 {
-    return DB::queryFirstRow("SELECT * FROM final_project_answer WHERE quId = %i AND quAnswer = %i",$id,1);
+    return DB::queryFirstRow("SELECT * FROM final_project_answer WHERE quId = %i AND quAnswer = %i", $id, 1);
 }
 
 /***
-  * function to get subject's id  by subject's name
+ * function to get subject's id  by subject's name
  * @param [string] subject's name
- * @return [int] subject's id  
+ * @return [int] subject's id
  */
 function getSubIdBySubName($subName)
 {
@@ -286,9 +286,9 @@ function getSubIdBySubName($subName)
 }
 
 /***
-  * function to delete question by question's id  
+ * function to delete question by question's id
  * @param [int] id of question
- * @return boolean 
+ * @return boolean
  */
 function deleteQuestionById($id)
 {
@@ -297,7 +297,7 @@ function deleteQuestionById($id)
 
 /**
  * function to fetch all questions' info from database
- * @return all questions' info 
+ * @return all questions' info
  */
 function getQuestions()
 {
@@ -316,7 +316,7 @@ function updateAnswerById($ansId)
 }
 
 /***
-* function to get questions by subject's id
+ * function to get questions by subject's id
  * @param [int] subject's id
  * @returns [array] questions
  */
@@ -327,20 +327,21 @@ function getQuestionsBySubId($subId)
 }
 
 /***
-* function to get data ready to render to new page by question's id
+ * function to get data ready to render to new page by question's id
  * @param [int] question's id
  * @returns void
  */
 function setDataToEditpage($id)
 {
     global $sender;
-    $sender['answer_editing'] = getAnswerByQuestionId($id);	
-    $sender['question_editing']= getQuestionById($id);
-    $sender['options_editing'] = getOptionsByQuestionId($id);	
-    $sender['file_name'] = "question_viewAndEdit.twig";	
+    $sender['answer_editing'] = getAnswerByQuestionId($id);
+    $sender['question_editing'] = getQuestionById($id);
+    $sender['options_editing'] = getOptionsByQuestionId($id);
+    $sender['file_name'] = "question_viewAndEdit.twig";
 }
+
 /***
-* function to get data ready to render to new page 
+ * function to get data ready to render to new page
  * @param [int] subject's id
  * @returns void
  */
@@ -348,9 +349,8 @@ function setDataToListpage()
 {
     global $sender;
     $sender['questions'] = getQuestions();
-    if($sender['subId']){
-    $sender['questions']=getQuestionsBySubId($_GET['subId']);
+    if ($sender['subId']) {
+        $sender['questions'] = getQuestionsBySubId($_GET['subId']);
     }
     $sender['file_name'] = "questions_list.twig";
-/**functions zhilin inc****** */
 }

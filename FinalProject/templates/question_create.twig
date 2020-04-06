@@ -6,63 +6,63 @@
 {% block main_content %}
     {# The content in here will replace the content block found inside of "base.twig" #}
     <div class="py-5 text-center " id="bg_question">
-        <div class="container bg-white">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="">Create a Question</h1> 
-                        </div>
+    <div class="container bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="">Create a Question</h1>
                     </div>
                 </div>
             </div>
-               <div class="row">
+        </div>
+        <div class="row">
             <div class="col-md-12">
-             <form class="text-left" action="" method="POST">
+                <form class="text-left" action="" method="POST">
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Question</span></div>
-                            <input type="text" class="form-control" id="inlineFormInputGroup" name="question" placeholder="Question" value="" >
+                            <input type="text" class="form-control" id="inlineFormInputGroup" name="question" placeholder="Question" value="">
                         </div>
                     </div>
 
-                 {% for i in 1..4 %}
-                      <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text" id="basic-addon1">
-                                    <input type="checkbox" name="answerId[]" value ="{{loop.index}}" aria-label="Checkbox for following text input" >
+                    {% for i in 1..4 %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text" id="basic-addon1">
+                                        <input type="checkbox" name="answerId[]" value="{{ loop.index }}" aria-label="Checkbox for following text input">
+                                    </div>
                                 </div>
+                                <input type="text" class="form-control" id="inlineFormInputGroup" name="option{{ loop.index }}" placeholder="Can not leave empty" value="">
                             </div>
-                            <input type="text" class="form-control" id="inlineFormInputGroup" name ="option{{loop.index}}" placeholder="Can not leave empty" value="">                           
                         </div>
-                    </div>
-                    {% endfor %}   
-                                   
+                    {% endfor %}
+
                     <div class="form-group">
                         <label>Type</label>
                         <select class="form-control " name="type" value="">
-                            <option disabled selected value > -- Select Single or Multiple Choice(s) -- </option>
-                            <option value="sgl" >Single Choice</option>
+                            <option disabled selected value> -- Select Single or Multiple Choice(s) --</option>
+                            <option value="sgl">Single Choice</option>
                             <option value="mul">Multiple Choices</option>
                         </select>
                     </div>
-                        <div class="form-group">
-                            <label>Subject</label>
-                            <select class="form-control " name="subject" value="">
-                                <option disabled selected value> -- Select a Subject Name-- </option>           
-                                {% for subject in subjects %}                                
-                                <option value="{{ subject.subId }}" >
-                                    {{ subject.subName }} 
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select class="form-control " name="subject" value="">
+                            <option disabled selected value> -- Select a Subject Name--</option>
+                            {% for subject in subjects %}
+                                <option value="{{ subject.subId }}">
+                                    {{ subject.subName }}
                                 </option>
-                                {% endfor %}              
-                            </select>
+                            {% endfor %}
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                    <a  href="question.php?mode=list"><i class="fa fa-fw fa-undo"></i>Back to list</a>
-                </form>  
-               
-                
+                    <a href="question.php?mode=list"><i class="fa fa-fw fa-undo"></i>Back to list</a>
+                </form>
+
+
             </div>
         </div>
     </div>

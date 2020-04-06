@@ -41,14 +41,11 @@
                             <div class="form-group">
                                 <label>{{ questions[currentPage - 1].quName }}</label>
                                 {% for option in options %}
-                                <div class="custom-control custom-radio"><input type="radio" id="customRadio{{ loop.index }}" name="option" class="custom-control-input" value="{{ option.ansId }}"><label class="custom-control-label" for="customRadio{{ loop.index }}">{{option.quOption}}</label></div>
-{#                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer2</label></div>#}
-{#                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer3</label></div>#}
-{#                                <div class="custom-control custom-radio"><input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"><label class="custom-control-label" for="customRadio1">Answer4</label></div>#}
+                                    <div class="custom-control custom-radio"><input type="radio" id="customRadio{{ loop.index }}" name="option" class="custom-control-input" value="{{ option.ansId }}"><label class="custom-control-label" for="customRadio{{ loop.index }}">{{ option.quOption }}</label>
+                                    </div>
                                 {% endfor %}
                                 <input type="hidden" name="subject" value="{{ questions[currentPage - 1].subName }}">
                                 <input type="hidden" name="page" value="{{ currentPage }}">
-{#                                <input type="hidden" name="correctCount" value="{{ correctCount }}">#}
                             </div>
                             <button type="submit" class="btn btn-primary  mb-5" {% if(submittedQuestions[currentPage]) %} disabled="disabled" {% endif %}>Submit</button>
                         </form>
